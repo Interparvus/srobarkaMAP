@@ -10,7 +10,7 @@ body {
   overflow: hidden;
   
 }
-button{
+#button1{
   z-index: 265;
   position: fixed;
   top: 0%;
@@ -19,16 +19,25 @@ button{
   width: 5vw;
   height: 2.5vh;
 }
+#button2{
+  z-index: 265;
+  position: fixed;
+  top: 2.5%;
+  left: 0%;
+  overflow: hidden;
+  width: 5vw;
+  height: 2.5vh;
+}
 pre{
   z-index: 1000;
   position: fixed;
-  top: 10%;
+  top: 4%;
   left: 0%;
   overflow: hidden;
   width: 15vw;
   height: 12vh;
   display: block;
-  color: rgb(255, 0, 191);
+  color: rgb(0, 0, 0);
   background-color: rgba(255, 255, 255, 0.233);
   font-size: 25px;
   opacity: 0.5;

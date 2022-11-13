@@ -1,5 +1,6 @@
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
+document.addEventListener("DOMContentLoaded", function(event){
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
   50,
@@ -14,22 +15,28 @@ var mouse,
   raycaster,
   selected = null,
   index,
-  element;
+  
+ element2; 
 let loadData = "./Prizemie.gltf";
-//button.innerText = 'Floor'
-//button.addEventListener('click', () => {
-function button() {
+//let element = document.getElementById("button1");
+function btn1(){  
+  console.log("pressed!")
   scene.remove(Floor);
   if (loadData === "./PrvePoschodie.gltf") {
     loadData = "./Prizemie.gltf";
-  } else {
-    loadData = "./PrvePoschodie.gltf";
+    ;
   }
-  loadGLTF();
+loadGLTF()}
+function btn2(){
+  scene.remove(Floor);
+  if (loadData ==="./Prizemie.gltf")
+    {loadData = "./PrvePoschodie.gltf";}
+    loadGLTF();
 }
-//document.getElementById("Floor").setAttribute("onClick", "javascript: button();");
-//})
-//document.body.appendChild(button)
+
+  
+  
+
 
 function onMouseMove(event) {
   event.preventDefault();
@@ -45,7 +52,7 @@ function onClick(event) {
   if (intersects.length > 0) {
     selected = intersects[0].object;
     index = room.findIndex((x) => x.x_pos === selected.position.x);
-    element = document.getElementById("InfoTabulka");
+    let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerHTML =
         "Miestnosť: " +
@@ -53,7 +60,7 @@ function onClick(event) {
         "\n" +
         "Učebňa: " +
         room[index].specific;
-
+      
       //var p = document.createElement("p");
       //p.innerHTML = (room[index].specific);
       //document.body.appendChild(p)
@@ -150,6 +157,8 @@ function init() {
   document.body.appendChild(renderer.domElement);
   document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
+  //element.addEventListener("click",btn1(),false);
+  //button2.addEventListener("click",btn2());
 }
 
 function setLight() {
@@ -201,3 +210,4 @@ setLight();
 loadGLTF();
 rooms();
 animate();
+});
