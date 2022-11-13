@@ -157,8 +157,8 @@ function init() {
   document.body.appendChild(renderer.domElement);
   document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
-  //element.addEventListener("click",btn1(),false);
-  //button2.addEventListener("click",btn2());
+  document.querySelector("#button1").addEventListener("click",btn1);
+  document.querySelector("#button2").addEventListener("click",btn2);
 }
 
 function setLight() {
