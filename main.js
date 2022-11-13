@@ -1,4 +1,4 @@
-
+import './style.css';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
 const button = document.createElement('button')
 let loadData = "./Prizemie.gltf"
@@ -19,9 +19,9 @@ const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.inner
 const scene = new THREE.Scene();
 let Loader = new THREE.GLTFLoader();
 let Floor;
-let light;
 const axesHelper = new THREE.AxesHelper( 5 );
 scene.add( axesHelper );
+//const interaction = new Interaction(renderer, scene, camera);
 
 function init() {
     scene.background = new THREE.Color('#57ada3');
@@ -41,9 +41,11 @@ function init() {
 }
 
 function setLight() {
-    light = new THREE.PointLight("white")
-    light.position.set(2,7,10)
-    scene.add(light);
+    const spotLight = new THREE.SpotLight( "gray");
+    spotLight.position.set( 0,20,12);
+    scene.add( spotLight );
+    
+
 }
 
 function loadGLTF() {
@@ -66,7 +68,7 @@ function loadGLTF() {
 function animate() {
     requestAnimationFrame(animate);
 	
-    //Floor.rotation.y+=0.01
+    
     renderer.render(scene, camera);
 }
 
