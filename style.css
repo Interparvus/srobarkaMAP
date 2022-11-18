@@ -28,17 +28,16 @@ body {
   width: 5vw;
   height: 2.5vh;
 }
-pre{
+#InfoTabulka{
+  padding: 1rem;
   z-index: 1000;
   position: fixed;
   top: 4%;
   left: 0%;
   overflow: hidden;
-  width: 15vw;
-  height: 12vh;
   display: block;
   color: rgb(0, 0, 0);
   background-color: rgba(255, 255, 255, 0.233);
   font-size: 25px;
-  opacity: 0.5;
+
 }

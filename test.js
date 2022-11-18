@@ -1,6 +1,5 @@
 
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-document.addEventListener("DOMContentLoaded", function(event){
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
   50,
@@ -68,14 +67,11 @@ function onClick(event) {
     }
   }
 }
-var grid = new THREE.GridHelper(100, 100);
-var grid_5 = new THREE.GridHelper(10, 100);
-scene.add(grid);
 
-scene.add(grid_5);
 
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
+
+
+
 let room = [
   {
     class: "7",
@@ -127,7 +123,7 @@ for (var x = 0; x < room.length; x++) {
 function rooms() {
   const geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
   const material = new THREE.MeshBasicMaterial({ color: "#ff3399" });
-  //var room_id = [];
+
 
   for (var i = 0; i < room.length; i++) {
     room_id[i] = new THREE.Mesh(geometry, material);
@@ -162,7 +158,7 @@ function init() {
 }
 
 function setLight() {
-  const spotLight = new THREE.SpotLight("gray");
+  const spotLight = new THREE.SpotLight("white");
   spotLight.position.set(0, 20, 12);
   scene.add(spotLight);
 }
@@ -183,7 +179,7 @@ function loadGLTF() {
 
 function animate() {
   requestAnimationFrame(animate);
-  //console.log("helo");
+
   for (var i = 0; i < room.length; i++) {
     room_id[i].rotation.y += 0.02;
   }
@@ -210,4 +206,3 @@ setLight();
 loadGLTF();
 rooms();
 animate();
-});
