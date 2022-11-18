@@ -152,6 +152,7 @@ function init() {
   document.body.appendChild(renderer.domElement);
   document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
+  document.addEventListener("touchstart",onClick);
   document.querySelector("#button1").addEventListener("click",btn1);
   document.querySelector("#button2").addEventListener("click",btn2);
 }
