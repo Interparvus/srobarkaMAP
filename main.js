@@ -19,16 +19,21 @@ let loadData = "./Prizemie.gltf";
 function btn1(){  
   console.log("pressed!")
   scene.remove(Floor);
+  room_id.forEach(cube => {scene.remove(cube)});
+  
   if (loadData === "./PrvePoschodie.gltf") {
     loadData = "./Prizemie.gltf";
     ;
   }
-loadGLTF()}
+loadGLTF();
+rooms();}
 function btn2(){
   scene.remove(Floor);
+   room_id.forEach(cube => {scene.remove(cube)});
   if (loadData ==="./Prizemie.gltf")
     {loadData = "./PrvePoschodie.gltf";}
     loadGLTF();
+    rooms();
 }
 
   
@@ -47,6 +52,8 @@ function onClick(event) {
   let intersects = raycaster.intersectObjects(room_id, false);
   //raycaster.intersectObjects(element, false);
   if (intersects.length > 0) {
+    room_id.forEach(cube => {cube.material.color.set("#ff3399")});
+    intersects[0].object.material.color.set("yellow")
     selected = intersects[0].object;
     index = room.findIndex((x) => x.x_pos === selected.position.x);
     let element = document.getElementById("InfoTabulka");
@@ -178,15 +185,15 @@ function animate() {
   raycaster.setFromCamera(mouse, camera);
 
   const intersects = raycaster.intersectObjects(room_id, false);
-  for (let j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].material) {
-      //scene.children[j].material.opacity = 1;
+  for (let j = 0; j < room_id.length; j++) {
+    if (room_id[j].material) {
+      room_id[j].material.opacity = 1;
     }
   }
   if (intersects.length > 0) {
     const newMaterial = intersects[0].object.material.clone();
     newMaterial.transparent = true;
-    //newMaterial.opacity = 0.5;
+    newMaterial.opacity = 0.5;
     intersects[0].object.material = newMaterial;
 
     

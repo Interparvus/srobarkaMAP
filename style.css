@@ -11,6 +11,7 @@ body {
   
 }
 #button1{
+  border: 0;
   z-index: 265;
   position: fixed;
   top: 0%;
@@ -18,8 +19,11 @@ body {
   overflow: hidden;
   width: 5vw;
   height: 2.5vh;
+  color: rgb(0, 255, 76);
+  background-color: rgba(59, 56, 56, 0.568);
 }
 #button2{
+  border: 0;
   z-index: 265;
   position: fixed;
   top: 2.5%;
@@ -27,6 +31,8 @@ body {
   overflow: hidden;
   width: 5vw;
   height: 2.5vh;
+  color: rgb(0, 255, 76);
+  background-color: rgba(59, 56, 56, 0.568);
 }
 #InfoTabulka{
   padding: 1rem;
@@ -36,8 +42,8 @@ body {
   left: 0%;
   overflow: hidden;
   display: block;
-  color: rgb(0, 0, 0);
-  background-color: rgba(255, 255, 255, 0.233);
+  color: rgb(0, 255, 76);
+  background-color: rgba(59, 56, 56, 0.568);
   font-size: 25px;
 
 }
