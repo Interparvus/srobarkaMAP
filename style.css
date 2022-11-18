@@ -1,8 +1,4 @@
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-} 
+
 body {
   width: 1000vw;
   height: 100vh;
@@ -17,8 +13,7 @@ body {
   top: 0%;
   left: 0%;
   overflow: hidden;
-  width: 5vw;
-  height: 2.5vh;
+  font-size: 25px;
   color: rgb(0, 255, 76);
   background-color: rgba(59, 56, 56, 0.568);
 }
@@ -29,8 +24,7 @@ body {
   top: 2.5%;
   left: 0%;
   overflow: hidden;
-  width: 5vw;
-  height: 2.5vh;
+  font-size: 25px;
   color: rgb(0, 255, 76);
   background-color: rgba(59, 56, 56, 0.568);
 }

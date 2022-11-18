@@ -75,49 +75,89 @@ function onClick(event) {
     }
   }
 }
+var grid = new THREE.GridHelper(100,100);
+var grid5 = new THREE.GridHelper(100,1000);
 
+scene.add(grid);
+//scene.add(grid5);
 let room = [
   {
     class: "7",
     specific: "1.D",
-    x_pos: 4.5,
+    x_pos: 6.7,
     y_pos: 1.9,
   },
   {
     class: "8",
     specific: "Kabinet_2.CJ_OBN",
-    x_pos: 3.7,
+    x_pos: 5.75,
     y_pos: 1.9,
   },
   {
     class: "9",
     specific: "3.C",
-    x_pos: 2.9,
+    x_pos: 4.8,
     y_pos: 1.9,
   },
   {
     class: "10",
     specific: "3.B",
-    x_pos: 1.95,
+    x_pos: 3.4,
     y_pos: 1.9,
   },
   {
     class: "11",
     specific: "Kabinet_MAT_INF",
-    x_pos: 1.35,
+    x_pos: 2.45,
     y_pos: 1.9,
   },
   {
     class: "12",
     specific: "Žiacka rada",
-    x_pos: 0.9,
-    y_pos: 1.9,
+    x_pos: 1.75,
+    y_pos: 2,
   },
   {
-    class: "Gym",
+    class: "54",
     specific: "Telocvičňa",
-    x_pos: 0.1,
+    x_pos: 0,
+    y_pos: -3,
+  },
+  {
+    class: "14",
+    specific: "vrátnica ???",
+    x_pos: 1.05,
+    y_pos: 1.65,
+  },
+  {
+    class: "5",
+    specific: "Jedáleň",
+    x_pos: 8.5,
+    y_pos: 1.4,
+  },
+  {
+    class: "53",
+    specific: "Šatňa_1",
+    x_pos: -0.5,
     y_pos: -1.75,
+  },
+  {
+    class: "55",
+    specific: "Šatňa_2",
+    x_pos: 0.5,
+    y_pos: -1.75,
+  },
+  {
+    class: "56",
+    specific: "Kabinet_TEV",
+    x_pos: 0.49,
+    y_pos: -1.15,
+  },
+  {
+    class: "59",
+    specific: "WC_Muži",
+    x_pos: 0.55,
+    y_pos: 0.25,
   },
 ];
 var room_id = [];
