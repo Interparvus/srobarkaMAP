@@ -40,6 +40,7 @@ function btn2(){
   
 
 function onTouch(event){
+    event.preventDefault();
     mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
 
     mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
