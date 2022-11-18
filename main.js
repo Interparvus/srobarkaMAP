@@ -39,7 +39,11 @@ function btn2(){
   
   
 
+function onTouch(event){
+    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 +-1;
 
+    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+}
 function onMouseMove(event) {
   event.preventDefault();
 
@@ -151,6 +155,7 @@ function init() {
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
   document.addEventListener("mousemove", onMouseMove, false);
+  document.addEventListener("touchstart", onTouch,false);
   document.addEventListener("click", onClick);
   document.addEventListener("touchstart",onClick);
   document.querySelector("#button1").addEventListener("click",btn1);
