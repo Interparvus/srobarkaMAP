@@ -7,24 +7,26 @@ body {
   
 }
 #button1{
+  display: block;
   border: 0;
   z-index: 265;
   position: fixed;
   top: 0%;
   left: 0%;
   overflow: hidden;
-  font-size: 25px;
+  font-size: 40px;
   color: rgb(0, 255, 76);
   background-color: rgba(59, 56, 56, 0.568);
 }
 #button2{
+  display: block;
   border: 0;
   z-index: 265;
   position: fixed;
   top: 2.5%;
   left: 0%;
   overflow: hidden;
-  font-size: 25px;
+  font-size: 40px;
   color: rgb(0, 255, 76);
   background-color: rgba(59, 56, 56, 0.568);
 }
@@ -38,6 +40,6 @@ body {
   display: block;
   color: rgb(0, 255, 76);
   background-color: rgba(59, 56, 56, 0.568);
-  font-size: 25px;
+  font-size: 50px;
 
 }
