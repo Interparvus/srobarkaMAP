@@ -245,7 +245,8 @@ function animate() {
   raycaster.setFromCamera(mouse, camera);
 
   const intersects = raycaster.intersectObjects(room_id, false);
-  for (let j = 0; j < room_id.length; j++) {
+  if (isMobile===false)
+{  for (let j = 0; j < room_id.length; j++) {
     if (room_id[j].material) {
       room_id[j].material.opacity = 1;
     }
@@ -255,7 +256,7 @@ function animate() {
     newMaterial.transparent = true;
     newMaterial.opacity = 0.5;
     intersects[0].object.material = newMaterial;
-  }
+  }}
   renderer.render(scene, camera);
 }
 
