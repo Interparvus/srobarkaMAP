@@ -9,7 +9,8 @@ if (
   )
 ) {
   isMobile = true;
-}
+}   
+console.log(isMobile);
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
   50,
@@ -211,7 +212,7 @@ function init() {
 { document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);}
   document.addEventListener("touchstart", onClick);
-  document.addEventListener("touchstart", onTouch, false);
+  //document.addEventListener("touchstart", onTouch, false);
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
 }
