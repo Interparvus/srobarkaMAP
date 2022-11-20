@@ -56,7 +56,18 @@ room_id.forEach((cube) => {
 const newMaterial = room_id[index].material.clone();
     newMaterial.color.set("yellow");
     room_id[index].material = newMaterial;
+
+    let element = document.getElementById("InfoTabulka");
+    if (element) {
+      element.innerText =
+        "Miestnosť: " +
+        room[index].class +
+        "\n" +
+        "Učebňa: " +
+        room[index].specific;
+    }
 }
+
 
 }
 function onTouch(event) {
@@ -255,9 +266,9 @@ function init() {
   document.body.appendChild(renderer.domElement);
   document.addEventListener("touchstart", onTouch, {passive:false});
   document.addEventListener("touchstart",select, {passive:false});
-  document.querySelector("#button1").addEventListener("click", btn1);
-  document.querySelector("#button2").addEventListener("click", btn2);
-  document.querySelector("#search").addEventListener("keypress",search);
+  document.querySelector("#button1").addEventListener("touchstart", btn1);
+  document.querySelector("#button2").addEventListener("touchstart", btn2);
+  document.querySelector("#search").addEventListener("keyup",search);
   
   }
 

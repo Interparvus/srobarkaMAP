@@ -44,19 +44,16 @@ body {
 
 }
 #search {
+  display: block;
   color: deeppink;
   background-color: rgb(5, 32, 59);
-  left: 90%;
+  left: 70%;
   position: fixed;
-  height: 10vh;
+  height: 5%;
   width: 100%;
   font-size: 18px;
   padding: 11px;
   border: 1px solid #ddd;
   z-index: 265;
-  -webkit-user-select: initial;
-  -khtml-user-select: initial;
-  -moz-user-select: initial;
-  -ms-user-select: initial;
-  user-select: initial;
+
 }

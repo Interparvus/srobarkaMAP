@@ -58,7 +58,18 @@ room_id.forEach((cube) => {
 const newMaterial = room_id[index].material.clone();
     newMaterial.color.set("yellow");
     room_id[index].material = newMaterial;
+
+    let element = document.getElementById("InfoTabulka");
+    if (element) {
+      element.innerText =
+        "Miestnosť: " +
+        room[index].class +
+        "\n" +
+        "Učebňa: " +
+        room[index].specific;
+    }
 }
+
 
 }
 function btn2() {
