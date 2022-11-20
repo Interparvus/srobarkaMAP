@@ -1,4 +1,3 @@
-
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
@@ -14,106 +13,155 @@ var mouse,
   raycaster,
   selected = null,
   index,
-  
- element2; 
+  element2;
 let loadData = "./Prizemie.gltf";
-//let element = document.getElementById("button1");
-function btn1(){  
-  console.log("pressed!")
+function btn1() {
+  console.log("pressed!");
   scene.remove(Floor);
+  room_id.forEach((cube) => {
+    scene.remove(cube);
+  });
+
   if (loadData === "./PrvePoschodie.gltf") {
     loadData = "./Prizemie.gltf";
-    ;
   }
-loadGLTF()}
-function btn2(){
+  loadGLTF();
+  rooms();
+}
+function btn2() {
   scene.remove(Floor);
-  if (loadData ==="./Prizemie.gltf")
-    {loadData = "./PrvePoschodie.gltf";}
-    loadGLTF();
-}
-
-  
-  
-
-
-function onMouseMove(event) {
-  event.preventDefault();
-
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
-
-function onClick(event) {
-  raycaster.setFromCamera(mouse, camera);
-  let intersects = raycaster.intersectObjects(scene.children, false);
-  //raycaster.intersectObjects(element, false);
-  if (intersects.length > 0) {
-    selected = intersects[0].object;
-    index = room.findIndex((x) => x.x_pos === selected.position.x);
-    let element = document.getElementById("InfoTabulka");
-    if (element) {
-      element.innerHTML =
-        "Miestnosť: " +
-        room[index].class +
-        "\n" +
-        "Učebňa: " +
-        room[index].specific;
-      
-      //var p = document.createElement("p");
-      //p.innerHTML = (room[index].specific);
-      //document.body.appendChild(p)
-      console.log(room[index].specific);
-    }
+  room_id.forEach((cube) => {
+    scene.remove(cube);
+  });
+  if (loadData === "./Prizemie.gltf") {
+    loadData = "./PrvePoschodie.gltf";
   }
+  loadGLTF();
+  rooms();
 }
 
+function onTouch(event) {
+  event.preventDefault();
+  mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
 
+  mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+}
 
+var grid = new THREE.GridHelper(100, 100);
 
-
+function select(event) {
+  event.preventDefault();
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(room_id, false);
+  
+  
+  
+  if (intersects.length > 0) {
+    for (let j = 0; j < room_id.length; j++) {
+      if (room_id[j].material) {
+        room_id[j].material.color.set("#ff3399");
+      }
+    }
+    const newMaterial = intersects[0].object.material.clone();
+    newMaterial.color.set("yellow");
+    intersects[0].object.material = newMaterial;
+  
+  selected = intersects[0].object;
+  index = room.findIndex((x) => x.x_pos === selected.position.x);
+  
+  let element = document.getElementById("InfoTabulka");
+  if (element) {
+    element.innerText =
+      "Miestnosť: " +
+      room[index].class +
+      "\n" +
+      "Učebňa: " +
+      room[index].specific;
+      console.log(index);
+    console.log(room[index].specific);
+    
+  }
+}}
+scene.add(grid);
+//scene.add(grid5);
 let room = [
   {
     class: "7",
     specific: "1.D",
-    x_pos: 4.5,
+    x_pos: 6.7,
     y_pos: 1.9,
   },
   {
     class: "8",
     specific: "Kabinet_2.CJ_OBN",
-    x_pos: 3.7,
+    x_pos: 5.75,
     y_pos: 1.9,
   },
   {
     class: "9",
     specific: "3.C",
-    x_pos: 2.9,
+    x_pos: 4.8,
     y_pos: 1.9,
   },
   {
     class: "10",
     specific: "3.B",
-    x_pos: 1.95,
+    x_pos: 3.4,
     y_pos: 1.9,
   },
   {
     class: "11",
     specific: "Kabinet_MAT_INF",
-    x_pos: 1.35,
+    x_pos: 2.45,
     y_pos: 1.9,
   },
   {
     class: "12",
     specific: "Žiacka rada",
-    x_pos: 0.9,
-    y_pos: 1.9,
+    x_pos: 1.75,
+    y_pos: 2,
   },
   {
-    class: "Gym",
+    class: "54",
     specific: "Telocvičňa",
-    x_pos: 0.1,
+    x_pos: 0,
+    y_pos: -3,
+  },
+  {
+    class: "14",
+    specific: "vrátnica ???",
+    x_pos: 1.05,
+    y_pos: 1.65,
+  },
+  {
+    class: "5",
+    specific: "Jedáleň",
+    x_pos: 8.5,
+    y_pos: 1.4,
+  },
+  {
+    class: "53",
+    specific: "Šatňa_1",
+    x_pos: -0.5,
     y_pos: -1.75,
+  },
+  {
+    class: "55",
+    specific: "Šatňa_2",
+    x_pos: 0.5,
+    y_pos: -1.75,
+  },
+  {
+    class: "56",
+    specific: "Kabinet_TEV",
+    x_pos: 0.49,
+    y_pos: -1.15,
+  },
+  {
+    class: "59",
+    specific: "WC_Muži",
+    x_pos: 0.55,
+    y_pos: 0.25,
   },
 ];
 var room_id = [];
@@ -123,7 +171,6 @@ for (var x = 0; x < room.length; x++) {
 function rooms() {
   const geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
   const material = new THREE.MeshBasicMaterial({ color: "#ff3399" });
-
 
   for (var i = 0; i < room.length; i++) {
     room_id[i] = new THREE.Mesh(geometry, material);
@@ -151,11 +198,12 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  document.addEventListener("mousemove", onMouseMove, false);
-  document.addEventListener("click", onClick);
-  document.querySelector("#button1").addEventListener("click",btn1);
-  document.querySelector("#button2").addEventListener("click",btn2);
-}
+  document.addEventListener("touchstart", onTouch, {passive:false});
+  document.addEventListener("touchstart",select, {passive:false});
+  document.querySelector("#button1").addEventListener("click", btn1);
+  document.querySelector("#button2").addEventListener("click", btn2);
+  
+  }
 
 function setLight() {
   const spotLight = new THREE.SpotLight("white");
@@ -183,22 +231,13 @@ function animate() {
   for (var i = 0; i < room.length; i++) {
     room_id[i].rotation.y += 0.02;
   }
-  raycaster.setFromCamera(mouse, camera);
+  
+  
+  //room_id.forEach((cube) => {
+  //  cube.material.color.set("#ff3399");
+  //});
 
-  const intersects = raycaster.intersectObjects(scene.children, false);
-  for (let j = 0; j < scene.children.length; j++) {
-    if (scene.children[j].material) {
-      scene.children[j].material.opacity = 1;
-    }
-  }
-  if (intersects.length > 0) {
-    const newMaterial = intersects[0].object.material.clone();
-    newMaterial.transparent = true;
-    newMaterial.opacity = 0.5;
-    intersects[0].object.material = newMaterial;
-
-    renderer.render(scene, camera);
-  }
+  renderer.render(scene, camera);
 }
 
 init();
