@@ -267,4 +267,5 @@ init();
 setLight();
 loadGLTF();
 rooms();
+traffic();
 animate();
