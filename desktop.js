@@ -44,6 +44,22 @@ function btn1() {
   }
   loadGLTF();
   rooms();
+
+}
+function search(event){
+  if (event.which == 13 || event.keyCode == 13)
+{var content = document.querySelector("#search").value;
+content = content.toLowerCase();
+index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
+console.log(room[index].specific);
+room_id.forEach((cube) => {
+  cube.material.color.set("#ff3399");
+});
+const newMaterial = room_id[index].material.clone();
+    newMaterial.color.set("yellow");
+    room_id[index].material = newMaterial;
+}
+
 }
 function btn2() {
   scene.remove(Floor);
@@ -232,6 +248,7 @@ function traffic(){
   scene.add(car3);
   scene.add(car4);
 }
+
 function init() {
   scene.background = new THREE.Color("#57ada3");
   camera.position.set(0.5, 13, 20);
@@ -255,6 +272,8 @@ function init() {
   //document.addEventListener("touchstart", onTouch, false);
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
+  //document.querySelector("#search").setAttribute("onkeyup",search);
+  document.querySelector("#search").addEventListener("keypress",search)
 }
 
 function setLight() {

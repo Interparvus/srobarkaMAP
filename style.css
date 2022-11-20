@@ -43,3 +43,14 @@ body {
   font-size: 50px;
 
 }
+#search {
+  color: deeppink;
+  background-color: rgb(5, 32, 59);
+  left: 90%;
+  position: fixed;
+ 
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
