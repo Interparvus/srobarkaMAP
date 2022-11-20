@@ -60,7 +60,6 @@ const newMaterial = room_id[index].material.clone();
 
 }
 function onTouch(event) {
-  event.preventDefault();
   mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
 
   mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
@@ -69,7 +68,6 @@ function onTouch(event) {
 var grid = new THREE.GridHelper(100, 100);
 
 function select(event) {
-  event.preventDefault();
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(room_id, false);
   
