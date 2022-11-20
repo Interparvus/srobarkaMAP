@@ -32,7 +32,7 @@ body {
 }
 #InfoTabulka{
   padding: 1rem;
-  z-index: 1000;
+  z-index: 100;
   position: fixed;
   top: 4%;
   left: 0%;
@@ -48,9 +48,10 @@ body {
   background-color: rgb(5, 32, 59);
   left: 90%;
   position: fixed;
- 
+  height: 10vh;
   width: 100%;
   font-size: 18px;
   padding: 11px;
   border: 1px solid #ddd;
+  z-index: 100;
 }
