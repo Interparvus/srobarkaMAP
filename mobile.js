@@ -14,7 +14,11 @@ var mouse,
   selected = null,
   index,
   tram,
-  tram2;
+  tram2,
+  car1,
+  car2,
+  car3,
+  car4;
 let loadData = "./Prizemie.gltf";
 function btn1() {
   console.log("pressed!");
@@ -186,16 +190,38 @@ function rooms() {
 function traffic(){
   const geometry = new THREE.BoxGeometry(0.5,0.5,2);
   const material = new THREE.MeshBasicMaterial({color: "red"});
+  const Cargeometry = new THREE.BoxGeometry(0.5,0.5,1);
+  const Carmaterial = new THREE.MeshBasicMaterial({color: "blue"});
   tram = new THREE.Mesh(geometry,material);
   tram2 = new THREE.Mesh(geometry,material);
+  car1 = new THREE.Mesh(Cargeometry,Carmaterial);
+  car2 = new THREE.Mesh(Cargeometry,Carmaterial);
+  car3 = new THREE.Mesh(Cargeometry,Carmaterial);
+  car4 = new THREE.Mesh(Cargeometry,Carmaterial);
   tram.position.x =12;
   tram.position.y = 0.25;
   tram.position.z = -50;
   tram2.position.x = 13;
   tram2.position.y=0.25;
   tram2.position.z = 50;
+  car1.position.x = -17;
+  car1.position.y = 0.25;
+  car1.position.z = 47;
+  car2.position.x = -18;
+  car2.position.y = 0.25;
+  car2.position.z = 50;
+  car3.position.x = -19;
+  car3.position.y = 0.25;
+  car3.position.z = -50;
+  car4.position.x = -20;
+  car4.position.y = 0.25;
+  car4.position.z = -48;
   scene.add(tram);
   scene.add(tram2);
+  scene.add(car1);
+  scene.add(car2);
+  scene.add(car3);
+  scene.add(car4);
 }
 function init() {
   scene.background = new THREE.Color("#57ada3");
@@ -242,12 +268,30 @@ function loadGLTF() {
 
 function animate() {
   requestAnimationFrame(animate);
-  if (tram.position.z <50)
+  if (car4.position.z > 50){
+    scene.remove(car4);
+    scene.remove(car2);
+    car4.position.z = -48;
+    car2.position.z = 50;
+    scene.add(car4);
+    scene.add(car2);
+
+  }
+  if (car3.position.z < 50)
   {tram.position.z += 0.1;
-  tram2.position.z += -0.1} 
+  tram2.position.z += -0.1;
+  car1.position.z += -0.1
+  car2.position.z += -0.2
+  car3.position.z += 0.1
+  car4.position.z += 0.2
+  } 
   else{
     scene.remove(tram2);
     scene.remove(tram);
+    scene.remove(car1);
+    scene.remove(car2);
+    scene.remove(car3);
+    scene.remove(car4);
     traffic();
   }
 
