@@ -25,7 +25,8 @@ var mouse,
   raycaster,
   selected = null,
   index,
-  element2;
+  tram,
+  tram2;
 let loadData = "./Prizemie.gltf";
 function btn1() {
   console.log("pressed!");
@@ -191,7 +192,20 @@ function rooms() {
     scene.add(room_id[i]);
   }
 }
-
+function traffic(){
+  const geometry = new THREE.BoxGeometry(0.5,0.5,2);
+  const material = new THREE.MeshBasicMaterial({color: "red"});
+  tram = new THREE.Mesh(geometry,material);
+  tram2 = new THREE.Mesh(geometry,material);
+  tram.position.x =12;
+  tram.position.y = 0.25;
+  tram.position.z = -50;
+  tram2.position.x = 13;
+  tram2.position.y=0.25;
+  tram2.position.z = 50;
+  scene.add(tram);
+  scene.add(tram2);
+}
 function init() {
   scene.background = new THREE.Color("#57ada3");
   camera.position.set(0.5, 13, 20);
@@ -239,6 +253,14 @@ function loadGLTF() {
 
 function animate() {
   requestAnimationFrame(animate);
+  if (tram.position.z <50)
+  {tram.position.z += 0.1;
+  tram2.position.z += -0.1} 
+  else{
+    scene.remove(tram2);
+    scene.remove(tram);
+    traffic();
+  }
 
   for (var i = 0; i < room.length; i++) {
     room_id[i].rotation.y += 0.02;
@@ -265,4 +287,5 @@ init();
 setLight();
 loadGLTF();
 rooms();
+traffic();
 animate();
