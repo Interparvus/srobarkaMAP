@@ -53,23 +53,19 @@ function search(event) {
   const newMaterial = room_id[0].material.clone();
   newMaterial.color.set("yellow")
 
-  for (var i = 0; i < room.length; i++) {
-    if (room[i].specific.toLowerCase().includes(content)) {
-
-      console.log(i)
-    }
-  }
-
   if (event.which == 13 || event.keyCode == 13) {
 
     index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
-    console.log(room[index].specific);
+
     room_id.forEach((cube) => {
       cube.material.color.set("#ff3399");
     });
-    const newMaterial = room_id[index].material.clone();
-    newMaterial.color.set("yellow");
-    room_id[index].material = newMaterial;
+
+    for (var i = 0; i < room.length; i++) {
+      if (room[i].specific.toLowerCase().includes(content)) {
+        room_id[i].material = newMaterial;
+      }
+    }
 
     let element = document.getElementById("InfoTabulka");
     if (element) {
