@@ -53,33 +53,29 @@ function search(event) {
   const newMaterial = room_id[0].material.clone();
   newMaterial.color.set("yellow")
 
-  if (event.which == 13 || event.keyCode == 13) {
+  index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
 
-    index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
+  room_id.forEach((cube) => {
+    cube.material.color.set("#ff3399");
+  });
 
-    room_id.forEach((cube) => {
-      cube.material.color.set("#ff3399");
-    });
+  if (!content) return;
 
-    for (var i = 0; i < room.length; i++) {
-      if (room[i].specific.toLowerCase().includes(content)) {
-        room_id[i].material = newMaterial;
-      }
+  for (var i = 0; i < room.length; i++) {
+    if (room[i].specific.toLowerCase().includes(content)) {
+      room_id[i].material = newMaterial;
     }
-
-    let element = document.getElementById("InfoTabulka");
-    if (element) {
-      element.innerText =
-        "Miestnosť: " +
-        room[index].class +
-        "\n" +
-        "Učebňa: " +
-        room[index].specific;
-    }
-
   }
 
-
+  let element = document.getElementById("InfoTabulka");
+  if (element) {
+    element.innerText =
+      "Miestnosť: " +
+      room[index].class +
+      "\n" +
+      "Učebňa: " +
+      room[index].specific;
+  }
 }
 function btn2() {
   scene.remove(Floor);
@@ -288,8 +284,7 @@ function init() {
 
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
-  //document.querySelector("#search").setAttribute("onkeyup",search);
-  document.querySelector("#search").addEventListener("keypress", search)
+  document.querySelector("#search").addEventListener("input", search)
 }
 
 function setLight() {
