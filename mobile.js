@@ -19,6 +19,8 @@ var mouse,
   car2,
   car3,
   car4;
+
+
 let loadData = "./Prizemie.gltf";
 function btn1() {
   console.log("pressed!");
@@ -66,6 +68,7 @@ const newMaterial = room_id[index].material.clone();
         "Učebňa: " +
         room[index].specific;
     }
+
 }
 
 
