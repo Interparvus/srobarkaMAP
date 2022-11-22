@@ -62,7 +62,7 @@ function search(event) {
   if (!content) return;
 
   for (var i = 0; i < room.length; i++) {
-    if (room[i].specific.toLowerCase().includes(content)) {
+    if (room[i].specific.toLowerCase().includes(content) || room[i].class.toLowerCase().includes(content)) {
       room_id[i].material = newMaterial;
     }
   }
