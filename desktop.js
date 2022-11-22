@@ -67,16 +67,19 @@ function search(event) {
     }
   }
 
-  let element = document.getElementById("InfoTabulka");
-  if (element) {
-    element.innerText =
-      "Miestnosť: " +
-      room[index].class +
-      "\n" +
-      "Učebňa: " +
-      room[index].specific;
+  if ((event.which == 13 || event.keyCode == 13) && index != -1) {
+    let element = document.getElementById("InfoTabulka");
+    if (element) {
+      element.innerText =
+        "Miestnosť: " +
+        room[index].class +
+        "\n" +
+        "Učebňa: " +
+        room[index].specific;
+    }
   }
 }
+
 function btn2() {
   scene.remove(Floor);
   room_id.forEach((cube) => {
@@ -285,6 +288,7 @@ function init() {
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
   document.querySelector("#search").addEventListener("input", search)
+  document.querySelector("#search").addEventListener("keypress", search)
 }
 
 function setLight() {
