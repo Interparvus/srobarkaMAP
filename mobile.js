@@ -46,19 +46,28 @@ function btn2() {
   loadGLTF();
   rooms();
 }
-function search(event){
-  if (event.which == 13 || event.keyCode == 13)
-{var content = document.querySelector("#search").value;
-content = content.toLowerCase();
-index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
-console.log(room[index].specific);
-room_id.forEach((cube) => {
-  cube.material.color.set("#ff3399");
-});
-const newMaterial = room_id[index].material.clone();
-    newMaterial.color.set("yellow");
-    room_id[index].material = newMaterial;
+function search(event) {
+  console.log("clicked")
+  var content = document.querySelector("#search").value;
+  content = content.toLowerCase();
+  const newMaterial = room_id[0].material.clone();
+  newMaterial.color.set("yellow")
 
+  index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
+
+  room_id.forEach((cube) => {
+    cube.material.color.set("#ff3399");
+  });
+
+  if (!content) return;
+
+  for (var i = 0; i < room.length; i++) {
+    if (room[i].specific.toLowerCase().includes(content) || room[i].class.toLowerCase().includes(content)) {
+      room_id[i].material = newMaterial;
+    }
+  }
+
+  if ((event.which == 13 || event.keyCode == 13) && index != -1) {
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -68,11 +77,9 @@ const newMaterial = room_id[index].material.clone();
         "Učebňa: " +
         room[index].specific;
     }
-
+  }
 }
 
-
-}
 function onTouch(event) {
   mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
 
