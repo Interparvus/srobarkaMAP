@@ -1,5 +1,5 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-var isMobile = false; 
+var isMobile = false;
 if (
   /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
     navigator.userAgent
@@ -9,7 +9,7 @@ if (
   )
 ) {
   isMobile = true;
-}   
+}
 console.log(isMobile);
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
@@ -46,29 +46,28 @@ function btn1() {
   rooms();
 
 }
-function search(event){
+function search(event) {
   console.log("clicked")
   var content = document.querySelector("#search").value;
   content = content.toLowerCase();
   const newMaterial = room_id[0].material.clone();
   newMaterial.color.set("yellow")
-  
-  for(var i =0; i < room.length; i++){
-    if (room[i].specific.toLowerCase().includes(content)){
-      
+
+  for (var i = 0; i < room.length; i++) {
+    if (room[i].specific.toLowerCase().includes(content)) {
+
       console.log(i)
     }
   }
 
-  if (event.which == 13 || event.keyCode == 13)
-{
+  if (event.which == 13 || event.keyCode == 13) {
 
-index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
-console.log(room[index].specific);
-room_id.forEach((cube) => {
-  cube.material.color.set("#ff3399");
-});
-const newMaterial = room_id[index].material.clone();
+    index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
+    console.log(room[index].specific);
+    room_id.forEach((cube) => {
+      cube.material.color.set("#ff3399");
+    });
+    const newMaterial = room_id[index].material.clone();
     newMaterial.color.set("yellow");
     room_id[index].material = newMaterial;
 
@@ -81,8 +80,8 @@ const newMaterial = room_id[index].material.clone();
         "Učebňa: " +
         room[index].specific;
     }
-    
-}
+
+  }
 
 
 }
@@ -107,7 +106,7 @@ function onMouseMove(event) {
 }
 
 function onClick(event) {
-  
+
   raycaster.setFromCamera(mouse, camera);
   let intersects = raycaster.intersectObjects(room_id, false);
   //raycaster.intersectObjects(element, false);
@@ -233,22 +232,22 @@ function rooms() {
     scene.add(room_id[i]);
   }
 }
-function traffic(){
-  const geometry = new THREE.BoxGeometry(0.5,0.5,2);
-  const material = new THREE.MeshBasicMaterial({color: "red"});
-  const Cargeometry = new THREE.BoxGeometry(0.5,0.5,1);
-  const Carmaterial = new THREE.MeshBasicMaterial({color: "blue"});
-  tram = new THREE.Mesh(geometry,material);
-  tram2 = new THREE.Mesh(geometry,material);
-  car1 = new THREE.Mesh(Cargeometry,Carmaterial);
-  car2 = new THREE.Mesh(Cargeometry,Carmaterial);
-  car3 = new THREE.Mesh(Cargeometry,Carmaterial);
-  car4 = new THREE.Mesh(Cargeometry,Carmaterial);
-  tram.position.x =12;
+function traffic() {
+  const geometry = new THREE.BoxGeometry(0.5, 0.5, 2);
+  const material = new THREE.MeshBasicMaterial({ color: "red" });
+  const Cargeometry = new THREE.BoxGeometry(0.5, 0.5, 1);
+  const Carmaterial = new THREE.MeshBasicMaterial({ color: "blue" });
+  tram = new THREE.Mesh(geometry, material);
+  tram2 = new THREE.Mesh(geometry, material);
+  car1 = new THREE.Mesh(Cargeometry, Carmaterial);
+  car2 = new THREE.Mesh(Cargeometry, Carmaterial);
+  car3 = new THREE.Mesh(Cargeometry, Carmaterial);
+  car4 = new THREE.Mesh(Cargeometry, Carmaterial);
+  tram.position.x = 12;
   tram.position.y = 0.25;
   tram.position.z = -50;
   tram2.position.x = 13;
-  tram2.position.y=0.25;
+  tram2.position.y = 0.25;
   tram2.position.z = 50;
   car1.position.x = -17;
   car1.position.y = 0.25;
@@ -286,15 +285,15 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  
- document.addEventListener("mousemove", onMouseMove, false);
+
+  document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
 
-  
+
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
   //document.querySelector("#search").setAttribute("onkeyup",search);
-  document.querySelector("#search").addEventListener("keypress",search)
+  document.querySelector("#search").addEventListener("keypress", search)
 }
 
 function setLight() {
@@ -319,7 +318,7 @@ function loadGLTF() {
 
 function animate() {
   requestAnimationFrame(animate);
-  if (car4.position.z > 50){
+  if (car4.position.z > 50) {
     scene.remove(car4);
     scene.remove(car2);
     car4.position.z = -48;
@@ -328,15 +327,15 @@ function animate() {
     scene.add(car2);
 
   }
-  if (car3.position.z < 50)
-  {tram.position.z += 0.1;
-  tram2.position.z += -0.1;
-  car1.position.z += -0.1
-  car2.position.z += -0.2
-  car3.position.z += 0.1
-  car4.position.z += 0.2
-  } 
-  else{
+  if (car3.position.z < 50) {
+    tram.position.z += 0.1;
+    tram2.position.z += -0.1;
+    car1.position.z += -0.1
+    car2.position.z += -0.2
+    car3.position.z += 0.1
+    car4.position.z += 0.2
+  }
+  else {
     scene.remove(tram2);
     scene.remove(tram);
     scene.remove(car1);
@@ -352,18 +351,19 @@ function animate() {
   raycaster.setFromCamera(mouse, camera);
 
   const intersects = raycaster.intersectObjects(room_id, false);
-  if (isMobile===false)
-{  for (let j = 0; j < room_id.length; j++) {
-    if (room_id[j].material) {
-      room_id[j].material.opacity = 1;
+  if (isMobile === false) {
+    for (let j = 0; j < room_id.length; j++) {
+      if (room_id[j].material) {
+        room_id[j].material.opacity = 1;
+      }
+    }
+    if (intersects.length > 0) {
+      const newMaterial = intersects[0].object.material.clone();
+      newMaterial.transparent = true;
+      newMaterial.opacity = 0.5;
+      intersects[0].object.material = newMaterial;
     }
   }
-  if (intersects.length > 0) {
-    const newMaterial = intersects[0].object.material.clone();
-    newMaterial.transparent = true;
-    newMaterial.opacity = 0.5;
-    intersects[0].object.material = newMaterial;
-  }}
   renderer.render(scene, camera);
 }
 
