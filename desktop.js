@@ -47,9 +47,22 @@ function btn1() {
 
 }
 function search(event){
+  console.log("clicked")
+  var content = document.querySelector("#search").value;
+  content = content.toLowerCase();
+  const newMaterial = room_id[0].material.clone();
+  newMaterial.color.set("yellow")
+  
+  for(var i =0; i < room.length; i++){
+    if (room[i].specific.toLowerCase().includes(content)){
+      
+      console.log(i)
+    }
+  }
+
   if (event.which == 13 || event.keyCode == 13)
-{var content = document.querySelector("#search").value;
-content = content.toLowerCase();
+{
+
 index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
 console.log(room[index].specific);
 room_id.forEach((cube) => {
@@ -68,6 +81,7 @@ const newMaterial = room_id[index].material.clone();
         "Učebňa: " +
         room[index].specific;
     }
+    
 }
 
 
@@ -84,12 +98,7 @@ function btn2() {
   rooms();
 }
 
-function onTouch(event) {
-  event.preventDefault();
-  mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
 
-  mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
-}
 function onMouseMove(event) {
   event.preventDefault();
 
@@ -98,6 +107,7 @@ function onMouseMove(event) {
 }
 
 function onClick(event) {
+  
   raycaster.setFromCamera(mouse, camera);
   let intersects = raycaster.intersectObjects(room_id, false);
   //raycaster.intersectObjects(element, false);
@@ -276,11 +286,11 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  if (isMobile === false)
-{ document.addEventListener("mousemove", onMouseMove, false);
-  document.addEventListener("click", onClick);}
-  document.addEventListener("touchstart", onClick);
-  //document.addEventListener("touchstart", onTouch, false);
+  
+ document.addEventListener("mousemove", onMouseMove, false);
+  document.addEventListener("click", onClick);
+
+  
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
   //document.querySelector("#search").setAttribute("onkeyup",search);
