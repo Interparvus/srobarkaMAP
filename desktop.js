@@ -394,7 +394,11 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-
+  Loader.load("./infrastructure.gltf",(gltf) =>{
+    var Structure = gltf.scene;
+    Structure.scale.set(12,12,12);
+    scene.add(Structure);
+  })
   document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
 

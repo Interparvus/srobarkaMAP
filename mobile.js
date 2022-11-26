@@ -386,13 +386,20 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  document.addEventListener("touchstart", onTouch, {passive:false});
-  document.addEventListener("touchstart",select, {passive:false});
-  document.querySelector("#button1").addEventListener("touchstart", btn1);
-  document.querySelector("#button2").addEventListener("touchstart", btn2);
-  document.querySelector("#search").addEventListener("keyup",search);
-  
-  }
+  Loader.load("./infrastructure.gltf",(gltf) =>{
+    var Structure = gltf.scene;
+    Structure.scale.set(12,12,12);
+    scene.add(Structure);
+  })
+  document.addEventListener("mousemove", onMouseMove, false);
+  document.addEventListener("click", onClick);
+
+
+  document.querySelector("#button1").addEventListener("click", btn1);
+  document.querySelector("#button2").addEventListener("click", btn2);
+  document.querySelector("#search").addEventListener("input", search)
+  document.querySelector("#search").addEventListener("keypress", search)
+}
 
 function setLight() {
   const spotLight = new THREE.SpotLight("white");
