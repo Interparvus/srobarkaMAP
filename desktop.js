@@ -89,7 +89,7 @@ function btn2() {
     loadData = "./PrvePoschodie.gltf";
   }
   loadGLTF();
-  rooms();
+  //rooms();
 }
 
 
@@ -201,7 +201,7 @@ let room = [
     class: "56",
     specific: "Kabinet_TEV",
     x_pos: 0.49,
-    y_pos: -1.15,
+    y_pos: -0.9,
   },
   {
     class: "59",
@@ -414,7 +414,7 @@ function setLight() {
 function loadGLTF() {
   Loader.load(loadData, (gltf) => {
     Floor = gltf.scene;
-    Floor.scale.set(12, 12, 12);
+    Floor.scale.set(12, 15, 12);
 
     scene.add(Floor);
     Floor.position.x = 0;
