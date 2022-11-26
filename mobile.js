@@ -391,15 +391,13 @@ function init() {
     Structure.scale.set(12,12,12);
     scene.add(Structure);
   })
-  document.addEventListener("mousemove", onMouseMove, false);
-  document.addEventListener("click", onClick);
-
-
-  document.querySelector("#button1").addEventListener("click", btn1);
-  document.querySelector("#button2").addEventListener("click", btn2);
-  document.querySelector("#search").addEventListener("input", search)
-  document.querySelector("#search").addEventListener("keypress", search)
-}
+  document.addEventListener("touchstart", onTouch, {passive:false});
+  document.addEventListener("touchstart",select, {passive:false});
+  document.querySelector("#button1").addEventListener("touchstart", btn1);
+  document.querySelector("#button2").addEventListener("touchstart", btn2);
+  document.querySelector("#search").addEventListener("keyup",search);
+  
+  }
 
 function setLight() {
   const spotLight = new THREE.SpotLight("white");
