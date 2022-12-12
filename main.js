@@ -74,7 +74,6 @@ picked_floor = 2;
 rooms();
 }
 function search(event) {
-  //console.log("clicked")
   var content = document.querySelector("#search").value;
   content = content.toLowerCase();
   const newMaterial = room_id[0].material.clone();
@@ -107,7 +106,8 @@ function search(event) {
   }
 }
 
-function onMouseMove(event) {
+
+  function onMouseMove(event) {
   event.preventDefault();
 
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -139,9 +139,49 @@ function onClick(event) {
     }
   }
 }
-var grid = new THREE.GridHelper(100, 100);
-var grid5 = new THREE.GridHelper(100, 1000);
 
+  function onTouch(event) {
+    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
+  
+    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+  }
+  
+  var grid = new THREE.GridHelper(100, 100);
+  
+  function select(event) {
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(room_id, false);
+    
+    
+    
+    if (intersects.length > 0) {
+      for (let j = 0; j < room_id.length; j++) {
+        if (room_id[j].material) {
+          room_id[j].material.color.set("#ff3399");
+        }
+      }
+      const newMaterial = intersects[0].object.material.clone();
+      newMaterial.color.set("yellow");
+      intersects[0].object.material = newMaterial;
+    
+    selected = intersects[0].object;
+    index = room.findIndex((x) => x.x_pos === selected.position.x);
+    
+    let element = document.getElementById("InfoTabulka");
+    if (element) {
+      element.innerText =
+        "Miestnosť: " +
+        room[index].class +
+        "\n" +
+        "Učebňa: " +
+        room[index].specific;
+        console.log(index);
+      console.log(room[index].specific);
+      
+    }
+  }}
+
+var grid = new THREE.GridHelper(100, 100);
 scene.add(grid);
 let room_2 =[
   {
@@ -556,14 +596,19 @@ function init() {
     Structure.scale.set(12,12,12);
     scene.add(Structure);
   })
-  document.addEventListener("mousemove", onMouseMove, false);
+  if(mobile === false){document.addEventListener("mousemove", onMouseMove, false);
   document.addEventListener("click", onClick);
-
-
   document.querySelector("#button1").addEventListener("click", btn1);
   document.querySelector("#button2").addEventListener("click", btn2);
   document.querySelector("#search").addEventListener("input", search)
-  document.querySelector("#search").addEventListener("keypress", search)
+  document.querySelector("#search").addEventListener("keypress", search)}
+  if(mobile === true){
+    document.addEventListener("touchstart", onTouch, {passive:false});
+    document.addEventListener("touchstart",select, {passive:false});
+    document.querySelector("#button1").addEventListener("touchstart", btn1);
+    document.querySelector("#button2").addEventListener("touchstart", btn2);
+    document.querySelector("#search").addEventListener("keyup",search);
+  }
 }
 
 function setLight() {
@@ -623,7 +668,7 @@ function animate() {
   for (var i = 0; i < room.length; i++) {
    room_id[i].rotation.y += 0.02;
   }
-  raycaster.setFromCamera(mouse, camera);
+  if(mobile === false){raycaster.setFromCamera(mouse, camera);
 
   const intersects = raycaster.intersectObjects(room_id, false);
 
@@ -639,7 +684,7 @@ if (intersects.length > 0) {
   newMaterial.opacity = 0.5;
   newMaterial.alphaTest = 0.5;
   intersects[0].object.material = newMaterial;
-}
+}}
 
   renderer.render(scene, camera);
 }
