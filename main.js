@@ -8,8 +8,8 @@ if (
     navigator.userAgent.substr(0, 4)
   )
 ) {
-    mobile = true;
-} 
+  mobile = true;
+}
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera(
   50,
@@ -32,12 +32,12 @@ var mouse,
   car2,
   car3,
   car4;
-  var room_id = [];
+var room_id = [];
 function btn1() {
   room_id.forEach((cube) => {
     scene.remove(cube);
   });
-  var newMaterial = new THREE.MeshStandardMaterial({color : "grey"});
+  var newMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
   newMaterial.transparent = true;
   newMaterial.opacity = 0;
   newMaterial.alphaTest = 1;
@@ -47,39 +47,43 @@ function btn1() {
   Floor.traverse((o) => {
     if (o.isMesh) {
       o.material.opacity = 1;
-      o.material.transparent = false;}
+      o.material.transparent = false;
+    }
   });
   picked_floor = 1;
   rooms();
 }
-function btn2() { 
-
+function btn2() {
   room_id.forEach((cube) => {
     scene.remove(cube);
   });
-var newMaterial = new THREE.MeshStandardMaterial({color : "grey"});
-newMaterial.transparent = true;
-newMaterial.opacity = 0;
-newMaterial.alphaTest = 1;
-Floor.traverse((o) => {
-  if (o.isMesh) {
-    o.material = newMaterial;}
-});
-Floor2.traverse((o) => {
-  if (o.isMesh) {
-    o.material.opacity = 1;
-    o.material.transparent = false;}
-});
-picked_floor = 2;
-rooms();
+  var newMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
+  newMaterial.transparent = true;
+  newMaterial.opacity = 0;
+  newMaterial.alphaTest = 1;
+  Floor.traverse((o) => {
+    if (o.isMesh) {
+      o.material = newMaterial;
+    }
+  });
+  Floor2.traverse((o) => {
+    if (o.isMesh) {
+      o.material.opacity = 1;
+      o.material.transparent = false;
+    }
+  });
+  picked_floor = 2;
+  rooms();
 }
 function search(event) {
   var content = document.querySelector("#search").value;
   content = content.toLowerCase();
   const newMaterial = room_id[0].material.clone();
-  newMaterial.color.set("yellow")
+  newMaterial.color.set("yellow");
 
-  index = room.findIndex((x) => (x.specific).toLowerCase().includes(content) === true);
+  index = room.findIndex(
+    (x) => x.specific.toLowerCase().includes(content) === true
+  );
 
   room_id.forEach((cube) => {
     cube.material.color.set("#ff3399");
@@ -88,7 +92,10 @@ function search(event) {
   if (!content) return;
 
   for (var i = 0; i < room.length; i++) {
-    if (room[i].specific.toLowerCase().includes(content) || room[i].class.toLowerCase().includes(content)) {
+    if (
+      room[i].specific.toLowerCase().includes(content) ||
+      room[i].class.toLowerCase().includes(content)
+    ) {
       room_id[i].material = newMaterial;
     }
   }
@@ -106,8 +113,7 @@ function search(event) {
   }
 }
 
-
-  function onMouseMove(event) {
+function onMouseMove(event) {
   event.preventDefault();
 
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -115,7 +121,6 @@ function search(event) {
 }
 
 function onClick(event) {
-
   raycaster.setFromCamera(mouse, camera);
   let intersects = raycaster.intersectObjects(room_id, false);
   //raycaster.intersectObjects(element, false);
@@ -140,33 +145,31 @@ function onClick(event) {
   }
 }
 
-  function onTouch(event) {
-    mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
-  
-    mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
-  }
-  
-  var grid = new THREE.GridHelper(100, 100);
-  
-  function select(event) {
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(room_id, false);
-    
-    
-    
-    if (intersects.length > 0) {
-      for (let j = 0; j < room_id.length; j++) {
-        if (room_id[j].material) {
-          room_id[j].material.color.set("#ff3399");
-        }
+function onTouch(event) {
+  mouse.x = +(event.targetTouches[0].pageX / window.innerWidth) * 2 + -1;
+
+  mouse.y = -(event.targetTouches[0].pageY / window.innerHeight) * 2 + 1;
+}
+
+var grid = new THREE.GridHelper(100, 100);
+
+function select(event) {
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(room_id, false);
+
+  if (intersects.length > 0) {
+    for (let j = 0; j < room_id.length; j++) {
+      if (room_id[j].material) {
+        room_id[j].material.color.set("#ff3399");
       }
-      const newMaterial = intersects[0].object.material.clone();
-      newMaterial.color.set("yellow");
-      intersects[0].object.material = newMaterial;
-    
+    }
+    const newMaterial = intersects[0].object.material.clone();
+    newMaterial.color.set("yellow");
+    intersects[0].object.material = newMaterial;
+
     selected = intersects[0].object;
     index = room.findIndex((x) => x.x_pos === selected.position.x);
-    
+
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -175,15 +178,15 @@ function onClick(event) {
         "\n" +
         "Učebňa: " +
         room[index].specific;
-        console.log(index);
+      console.log(index);
       console.log(room[index].specific);
-      
     }
-  }}
+  }
+}
 
 var grid = new THREE.GridHelper(100, 100);
 scene.add(grid);
-let room_2 =[
+let room_2 = [
   {
     class: "87",
     specific: "AULA",
@@ -513,13 +516,13 @@ let room = [
 ];
 let room_1 = room;
 function rooms() {
-  if(picked_floor ===1){
-    room = room_1
+  if (picked_floor === 1) {
+    room = room_1;
   }
-  if(picked_floor ===2){
-    room = room_2
+  if (picked_floor === 2) {
+    room = room_2;
   }
-  
+
   for (var x = 0; x < room.length; x++) {
     room_id[x] = new Object();
   }
@@ -531,10 +534,12 @@ function rooms() {
 
     room_id[i].position.x = room[i].x_pos;
     room_id[i].position.z = room[i].y_pos;
-    if(picked_floor === 1)
-    {room_id[i].position.y = 0.5};
-    if(picked_floor === 2)
-    {room_id[i].position.y = 1};
+    if (picked_floor === 1) {
+      room_id[i].position.y = 0.5;
+    }
+    if (picked_floor === 2) {
+      room_id[i].position.y = 1;
+    }
     scene.add(room_id[i]);
   }
 }
@@ -591,23 +596,25 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  Loader.load("./infrastructure.gltf",(gltf) =>{
+  Loader.load("./infrastructure.gltf", (gltf) => {
     var Structure = gltf.scene;
-    Structure.scale.set(12,12,12);
+    Structure.scale.set(12, 12, 12);
     scene.add(Structure);
-  })
-  if(mobile === false){document.addEventListener("mousemove", onMouseMove, false);
-  document.addEventListener("click", onClick);
-  document.querySelector("#button1").addEventListener("click", btn1);
-  document.querySelector("#button2").addEventListener("click", btn2);
-  document.querySelector("#search").addEventListener("input", search)
-  document.querySelector("#search").addEventListener("keypress", search)}
-  if(mobile === true){
-    document.addEventListener("touchstart", onTouch, {passive:false});
-    document.addEventListener("touchstart",select, {passive:false});
+  });
+  if (mobile === false) {
+    document.addEventListener("mousemove", onMouseMove, false);
+    document.addEventListener("click", onClick);
+    document.querySelector("#button1").addEventListener("click", btn1);
+    document.querySelector("#button2").addEventListener("click", btn2);
+    document.querySelector("#search").addEventListener("input", search);
+    document.querySelector("#search").addEventListener("keypress", search);
+  }
+  if (mobile === true) {
+    document.addEventListener("touchstart", onTouch, { passive: false });
+    document.addEventListener("touchstart", select, { passive: false });
     document.querySelector("#button1").addEventListener("touchstart", btn1);
     document.querySelector("#button2").addEventListener("touchstart", btn2);
-    document.querySelector("#search").addEventListener("keyup",search);
+    document.querySelector("#search").addEventListener("keyup", search);
   }
 }
 
@@ -618,21 +625,19 @@ function setLight() {
 }
 
 function loadGLTF() {
-  var newMaterial = new THREE.MeshStandardMaterial({color: 0xff0000});
+  var newMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
   newMaterial.transparent = true;
   Loader.load("./Prizemie.gltf", (gltf) => {
     Floor = gltf.scene;
     Floor.scale.set(12, 15, 12);
-    
-    scene.add(Floor);
 
+    scene.add(Floor);
   });
   Loader.load("./PrvePoschodie.gltf", (gltf) => {
     Floor2 = gltf.scene;
     Floor2.scale.set(12, 15, 12);
-    
-    scene.add(Floor2);
 
+    scene.add(Floor2);
   });
 }
 
@@ -645,17 +650,15 @@ function animate() {
     car2.position.z = 50;
     scene.add(car4);
     scene.add(car2);
-
   }
   if (car3.position.z < 50) {
     tram.position.z += 0.1;
     tram2.position.z += -0.1;
-    car1.position.z += -0.1
-    car2.position.z += -0.2
-    car3.position.z += 0.1
-    car4.position.z += 0.2
-  }
-  else {
+    car1.position.z += -0.1;
+    car2.position.z += -0.2;
+    car3.position.z += 0.1;
+    car4.position.z += 0.2;
+  } else {
     scene.remove(tram2);
     scene.remove(tram);
     scene.remove(car1);
@@ -666,25 +669,27 @@ function animate() {
   }
 
   for (var i = 0; i < room.length; i++) {
-   room_id[i].rotation.y += 0.02;
+    room_id[i].rotation.y += 0.02;
   }
-  if(mobile === false){raycaster.setFromCamera(mouse, camera);
+  if (mobile === false) {
+    raycaster.setFromCamera(mouse, camera);
 
-  const intersects = raycaster.intersectObjects(room_id, false);
+    const intersects = raycaster.intersectObjects(room_id, false);
 
-for (let j = 0; j < room_id.length; j++) {
-  if (room_id[j].material) {
-    room_id[j].material.opacity = 1;
-    room_id[j].material.transparent = false;
+    for (let j = 0; j < room_id.length; j++) {
+      if (room_id[j].material) {
+        room_id[j].material.opacity = 1;
+        room_id[j].material.transparent = false;
+      }
+    }
+    if (intersects.length > 0) {
+      const newMaterial = intersects[0].object.material.clone();
+      newMaterial.transparent = true;
+      newMaterial.opacity = 0.5;
+      newMaterial.alphaTest = 0.5;
+      intersects[0].object.material = newMaterial;
+    }
   }
-}
-if (intersects.length > 0) {
-  const newMaterial = intersects[0].object.material.clone();
-  newMaterial.transparent = true;
-  newMaterial.opacity = 0.5;
-  newMaterial.alphaTest = 0.5;
-  intersects[0].object.material = newMaterial;
-}}
 
   renderer.render(scene, camera);
 }
