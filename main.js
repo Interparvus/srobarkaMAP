@@ -25,6 +25,7 @@ var picked_floor = 1;
 var mouse,
   raycaster,
   selected = null,
+  found = false,
   index,
   tram,
   tram2,
@@ -76,8 +77,28 @@ function btn2() {
   rooms();
 }
 function search(event) {
+  found = false;
+  const transparentMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
+  transparentMaterial.transparent = true;
+  transparentMaterial.opacity = 1;
+  //transparentMaterial.alphaTest = 0.5;
+  Floor2.traverse((o) => {
+    if (o.isMesh) {
+      o.material = transparentMaterial;
+      
+    }
+  });
+  Floor.traverse((o) => {
+    if (o.isMesh) {
+      o.material = transparentMaterial;
+    }
+  });
+  room_id.forEach((cube) => {
+    scene.remove(cube);
+  });
   var content = document.querySelector("#search").value;
   content = content.toLowerCase();
+  rooms();
   const newMaterial = room_id[0].material.clone();
   newMaterial.color.set("yellow");
 
@@ -110,6 +131,27 @@ function search(event) {
         "Učebňa: " +
         room[index].specific;
     }
+    found = true;
+    if(room[index].z_pos === 0.5){
+      room_id.forEach((cube) => {
+        scene.remove(cube);
+      });
+
+      btn1()
+      
+    };
+    if(room[index].z_pos === 1){
+      room_id.forEach((cube) => {
+        scene.remove(cube);
+      });
+
+      btn2()
+      
+    };
+    index = room.findIndex(
+      (x) => x.specific.toLowerCase().includes(content) === true
+    );
+    room_id[index].material = newMaterial; 
   }
 }
 
@@ -192,132 +234,154 @@ let room_2 = [
     specific: "AULA",
     x_pos: -8.6,
     y_pos: 1.6,
+    z_pos: 1,
   },
   {
     class: "88",
     specific: "2.C",
     x_pos: -8.9,
     y_pos: -0.2,
+    z_pos: 1,
   },
   {
     class: "89",
     specific: "Kabinet_NEJ",
     x_pos: -8.90001,
     y_pos: -1.25,
+    z_pos: 1,
   },
   {
     class: "90",
     specific: "2.E",
     x_pos: -8.90011,
     y_pos: -2.1,
+    z_pos: 1,
   },
   {
     class: "91",
     specific: "Sklad_CHE",
     x_pos: -8.90101,
     y_pos: -3.52,
+    z_pos: 1,
   },
   {
     class: "94",
     specific: "Kabinet_CHE",
     x_pos: -8.901101,
     y_pos: -5,
+    z_pos: 1,
   },
   {
     class: "95",
     specific: "1.C",
     x_pos: -8.901111,
     y_pos: -6.45,
+    z_pos: 1,
   },
   {
     class: "39",
     specific: "WC_Muži",
     x_pos: -7.5,
     y_pos: -5.37,
+    z_pos: 1,
   },
   {
     class: "42",
     specific: "WC_Ženy",
     x_pos: -7.51,
     y_pos: -4.42,
+    z_pos: 1,
   },
   {
     class: "72",
     specific: "2.D",
     x_pos: 6.7,
     y_pos: 1.9,
+    z_pos: 1,
   },
   {
     class: "73",
     specific: "3.D",
     x_pos: 5.6,
     y_pos: 1.9,
+    z_pos: 1,
   },
   {
     class: "74",
     specific: "2.B",
     x_pos: 4.35,
     y_pos: 1.9,
+    z_pos: 1,
   },
   {
     class: "75",
     specific: "2.A",
     x_pos: 2.9,
     y_pos: 1.9,
+    z_pos: 1,
   },
   {
     class: "76",
     specific: "1.A",
     x_pos: 1.75,
     y_pos: 2,
+    z_pos: 1,
   },
   {
     class: "77",
     specific: "3.E",
     x_pos: 0.75,
     y_pos: 2.1,
+    z_pos: 1,
   },
   {
     class: "78",
     specific: "3.A",
     x_pos: -0.5,
     y_pos: 2.1,
+    z_pos: 1,
   },
   {
     class: "79",
     specific: "4.C",
     x_pos: -1.75,
     y_pos: 2.1,
+    z_pos: 1,
   },
   {
     class: "81",
     specific: "JU_1",
     x_pos: -2.6,
     y_pos: 2,
+    z_pos: 1,
   },
   {
     class: "82",
     specific: "1.B",
     x_pos: -3.6,
     y_pos: 2,
+    z_pos: 1,
   },
   {
     class: "83",
     specific: "4.D",
     x_pos: -4.8,
     y_pos: 2,
+    z_pos: 1,
   },
   {
     class: "84",
     specific: "Kabinet_DEJ_GEG",
     x_pos: -5.8,
     y_pos: 2,
+    z_pos: 1,
   },
   {
     class: "85",
     specific: "1.E",
     x_pos: -6.75,
     y_pos: 2,
+    z_pos: 1,
   },
 ];
 let room = [
@@ -326,192 +390,224 @@ let room = [
     specific: "1.D",
     x_pos: 6.7,
     y_pos: 1.9,
+    z_pos: 0.5,
   },
   {
     class: "8",
-    specific: "Kabinet_2.CJ_OBN",
+    specific: "Kabinet_CJ_OBN",
     x_pos: 5.75,
     y_pos: 1.9,
+    z_pos: 0.5,
   },
   {
     class: "9",
     specific: "3.C",
     x_pos: 4.8,
     y_pos: 1.9,
+    z_pos: 0.5,
   },
   {
     class: "10",
     specific: "3.B",
     x_pos: 3.4,
     y_pos: 1.9,
+    z_pos: 0.5,
   },
   {
     class: "11",
     specific: "Kabinet_MAT_INF",
     x_pos: 2.45,
     y_pos: 1.9,
+    z_pos: 0.5,
   },
   {
     class: "12",
     specific: "Žiacka rada",
     x_pos: 1.75,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "54",
     specific: "Telocvičňa",
     x_pos: 0,
     y_pos: -3,
+    z_pos: 0.5,
   },
   {
     class: "14",
     specific: "vrátnica ???",
     x_pos: 1.05,
     y_pos: 1.65,
+    z_pos: 0.5,
   },
   {
     class: "5",
     specific: "Jedáleň",
     x_pos: 8.5,
     y_pos: 1.4,
+    z_pos: 0.5,
   },
   {
     class: "53",
     specific: "Šatňa_1",
     x_pos: -0.5,
     y_pos: -1.75,
+    z_pos: 0.5,
   },
   {
     class: "55",
     specific: "Šatňa_2",
     x_pos: 0.5,
     y_pos: -1.75,
+    z_pos: 0.5,
   },
   {
     class: "56",
     specific: "Kabinet_TEV",
     x_pos: 0.49,
     y_pos: -0.9,
+    z_pos: 0.5,
   },
   {
     class: "59",
     specific: "WC_Muži",
     x_pos: 0.55,
     y_pos: 0.25,
+    z_pos: 0.5,
   },
   {
     class: "17",
     specific: "Psychologička",
     x_pos: -0.51,
     y_pos: 2.4,
+    z_pos: 0.5,
   },
   {
     class: "18",
     specific: "Knižnica",
     x_pos: -1.75,
     y_pos: 2.1,
+    z_pos: 0.5,
   },
   {
     class: "20",
     specific: "IB_1",
     x_pos: -3,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "21",
     specific: "INF_3",
     x_pos: -4,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "22",
     specific: "Kabinet_ANJ",
     x_pos: -4.8,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "23",
     specific: "MMU_Multimediálna_učebňa",
     x_pos: -6,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "24",
     specific: "Kabinet_ANJ_2",
     x_pos: -7.2,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "26",
     specific: "Ateliér",
     x_pos: -7.9,
     y_pos: 2,
+    z_pos: 0.5,
   },
   {
     class: "28",
     specific: "Študovňa",
     x_pos: -8.6,
     y_pos: 1.6,
+    z_pos: 0.5,
   },
   {
     class: "29",
     specific: "INF_1_Caffe",
     x_pos: -8.9,
     y_pos: 0.8,
+    z_pos: 0.5,
   },
   {
     class: "32",
     specific: "4.B",
     x_pos: -8.9,
     y_pos: -0.2,
+    z_pos: 0.5,
   },
   {
     class: "33",
     specific: "Kabinet_INF",
     x_pos: -8.90001,
     y_pos: -1.25,
+    z_pos: 0.5,
   },
   {
     class: "33.A",
     specific: "Kabinet_INF_A",
     x_pos: -8.90011,
     y_pos: -1.75,
+    z_pos: 0.5,
   },
   {
     class: "34",
     specific: "INF_2",
     x_pos: -8.90111,
     y_pos: -2.5,
+    z_pos: 0.5,
   },
   {
     class: "35",
     specific: "4.A",
     x_pos: -8.90101,
     y_pos: -3.52,
+    z_pos: 0.5,
   },
   {
     class: "36",
     specific: "4.E",
     x_pos: -8.901101,
     y_pos: -5,
+    z_pos: 0.5,
   },
   {
     class: "37",
     specific: "Rezerva",
     x_pos: -8.901111,
     y_pos: -6.45,
+    z_pos: 0.5,
   },
   {
     class: "39",
     specific: "WC_Muži",
     x_pos: -7.5,
     y_pos: -5.37,
+    z_pos: 0.5,
   },
   {
     class: "42",
     specific: "WC_Ženy",
     x_pos: -7.51,
     y_pos: -4.42,
+    z_pos: 0.5,
   },
 ];
 let room_1 = room;
@@ -522,24 +618,21 @@ function rooms() {
   if (picked_floor === 2) {
     room = room_2;
   }
-
+  if (document.querySelector("#search") && document.querySelector("#search").value && found === false){
+    room = room_1.concat(room_2);
+  }
   for (var x = 0; x < room.length; x++) {
     room_id[x] = new Object();
   }
   const geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
   const material = new THREE.MeshBasicMaterial({ color: "#ff3399" });
-
+  material.alphaTest = 0.5;
   for (var i = 0; i < room.length; i++) {
     room_id[i] = new THREE.Mesh(geometry, material);
 
     room_id[i].position.x = room[i].x_pos;
     room_id[i].position.z = room[i].y_pos;
-    if (picked_floor === 1) {
-      room_id[i].position.y = 0.5;
-    }
-    if (picked_floor === 2) {
-      room_id[i].position.y = 1;
-    }
+    room_id[i].position.y = room[i].z_pos;
     scene.add(room_id[i]);
   }
 }
@@ -607,6 +700,7 @@ function init() {
     document.querySelector("#button1").addEventListener("click", btn1);
     document.querySelector("#button2").addEventListener("click", btn2);
     document.querySelector("#search").addEventListener("input", search);
+    document.querySelector("#search").addEventListener("click", search);
     document.querySelector("#search").addEventListener("keypress", search);
   }
   if (mobile === true) {
@@ -615,6 +709,7 @@ function init() {
     document.querySelector("#button1").addEventListener("touchstart", btn1);
     document.querySelector("#button2").addEventListener("touchstart", btn2);
     document.querySelector("#search").addEventListener("keyup", search);
+    document.querySelector("#search").addEventListener("touchstart", search);
   }
 }
 
@@ -625,7 +720,7 @@ function setLight() {
 }
 
 function loadGLTF() {
-  var newMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+  var newMaterial = new THREE.MeshStandardMaterial("grey");
   newMaterial.transparent = true;
   Loader.load("./Prizemie.gltf", (gltf) => {
     Floor = gltf.scene;
