@@ -104,7 +104,7 @@ function search(event) {
   newMaterial.color.set("yellow");
 
   index = room.findIndex(
-    (x) => x.specific.toLowerCase().includes(content) === true
+    (x) => x.specific.toLowerCase().includes(content) === true || x.class=== content
   );
 
   room_id.forEach((cube) => {
@@ -150,7 +150,7 @@ function search(event) {
       
     };
     index = room.findIndex(
-      (x) => x.specific.toLowerCase().includes(content) === true
+      (x) => x.specific.toLowerCase().includes(content) === true || x.class===content
     );
     room_id[index].material = newMaterial; 
   }
