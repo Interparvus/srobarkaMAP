@@ -21,7 +21,7 @@ const scene = new THREE.Scene();
 let Loader = new THREE.GLTFLoader();
 let Floor;
 let Floor2;
-var picked_floor = 1;
+var picked_floor = 0;
 var mouse,
   raycaster,
   selected = null,
@@ -618,7 +618,7 @@ function rooms() {
   if (picked_floor === 2) {
     room = room_2;
   }
-  if (document.querySelector("#search") && document.querySelector("#search").value && found === false){
+  if ((document.querySelector("#search") && document.querySelector("#search").value && found === false)||picked_floor===0 ){
     room = room_1.concat(room_2);
   }
   for (var x = 0; x < room.length; x++) {
@@ -762,8 +762,8 @@ function animate() {
     scene.remove(car4);
     traffic();
   }
-
-  for (var i = 0; i < room.length; i++) {
+if(room_id.length>0)
+  {for (var i = 0; i < room.length; i++) {
     room_id[i].rotation.y += 0.02;
   }
   if (mobile === false) {
@@ -784,7 +784,7 @@ function animate() {
       newMaterial.alphaTest = 0.5;
       intersects[0].object.material = newMaterial;
     }
-  }
+  }}
 
   renderer.render(scene, camera);
 }
