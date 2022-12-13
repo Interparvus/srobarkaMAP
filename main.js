@@ -282,14 +282,14 @@ let room_2 = [
   {
     class: "39",
     specific: "WC_Muži",
-    x_pos: -7.5,
+    x_pos: -7.501,
     y_pos: -5.37,
     z_pos: 1,
   },
   {
     class: "42",
     specific: "WC_Ženy",
-    x_pos: -7.51,
+    x_pos: -7.5101,
     y_pos: -4.42,
     z_pos: 1,
   },
