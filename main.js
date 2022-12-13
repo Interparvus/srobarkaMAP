@@ -98,6 +98,7 @@ function search(event) {
   });
   var content = document.querySelector("#search").value;
   content = content.toLowerCase();
+  picked_floor =0;
   rooms();
   const newMaterial = room_id[0].material.clone();
   newMaterial.color.set("yellow");
