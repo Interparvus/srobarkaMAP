@@ -338,7 +338,7 @@ let room_2 = [
   {
     class: "78",
     specific: "3.A",
-    x_pos: -0.5,
+    x_pos: -0.500001,
     y_pos: 2.1,
     z_pos: 1,
   },
