@@ -130,7 +130,8 @@ function search(event) {
         room[index].class +
         "\n" +
         "Učebňa: " +
-        room[index].specific;
+        room[index].specific 
+        
     }
     found = true;
     if(room[index].z_pos === 0.5){
@@ -389,7 +390,7 @@ let room = [
   {
     class: "7",
     specific: "1.D",
-    x_pos: 6.7,
+    x_pos: 6.701,
     y_pos: 1.9,
     z_pos: 0.5,
   },
@@ -424,7 +425,7 @@ let room = [
   {
     class: "12",
     specific: "Žiacka rada",
-    x_pos: 1.75,
+    x_pos: 1.75001,
     y_pos: 2,
     z_pos: 0.5,
   },
@@ -487,7 +488,7 @@ let room = [
   {
     class: "18",
     specific: "Knižnica",
-    x_pos: -1.75,
+    x_pos: -1.7501,
     y_pos: 2.1,
     z_pos: 0.5,
   },
@@ -508,7 +509,7 @@ let room = [
   {
     class: "22",
     specific: "Kabinet_ANJ",
-    x_pos: -4.8,
+    x_pos: -4.801,
     y_pos: 2,
     z_pos: 0.5,
   },
