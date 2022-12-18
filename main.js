@@ -108,7 +108,7 @@ function search(event) {
   );
 
   room_id.forEach((cube) => {
-    cube.material.color.set("#ff3399");
+    cube.material.color.set("#ff1654");
   });
 
   if (!content) return;
@@ -170,7 +170,7 @@ function onClick(event) {
   //raycaster.intersectObjects(element, false);
   if (intersects.length > 0) {
     room_id.forEach((cube) => {
-      cube.material.color.set("#ff3399");
+      cube.material.color.set("#ff1654");
     });
     intersects[0].object.material.color.set("yellow");
     selected = intersects[0].object;
@@ -204,7 +204,7 @@ function select(event) {
   if (intersects.length > 0) {
     for (let j = 0; j < room_id.length; j++) {
       if (room_id[j].material) {
-        room_id[j].material.color.set("#ff3399");
+        room_id[j].material.color.set("#ff1654");
       }
     }
     const newMaterial = intersects[0].object.material.clone();
@@ -228,8 +228,7 @@ function select(event) {
   }
 }
 
-var grid = new THREE.GridHelper(100, 100);
-scene.add(grid);
+
 let room_2 = [
   {
     class: "87",
@@ -627,7 +626,7 @@ function rooms() {
     room_id[x] = new Object();
   }
   const geometry = new THREE.BoxGeometry(0.25, 0.25, 0.25);
-  const material = new THREE.MeshBasicMaterial({ color: "#ff3399" });
+  const material = new THREE.MeshBasicMaterial({ color: "#ff1654" });
   material.alphaTest = 0.5;
   for (var i = 0; i < room.length; i++) {
     room_id[i] = new THREE.Mesh(geometry, material);
@@ -676,7 +675,7 @@ function traffic() {
 }
 
 function init() {
-  scene.background = new THREE.Color("#57ada3");
+  scene.background = new THREE.Color("#58668b");
   camera.position.set(0.5, 13, 20);
   renderer.setSize(window.innerWidth, window.innerHeight);
   const controls = new OrbitControls(camera, renderer.domElement);
