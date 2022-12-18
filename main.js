@@ -123,6 +123,10 @@ function search(event) {
   }
 
   if ((event.which == 13 || event.keyCode == 13) && index != -1) {
+    let level = "Prízemie"
+    if (room[index].z_pos === 1){
+      level = "Prvé poschodie"
+    }
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -130,7 +134,9 @@ function search(event) {
         room[index].class +
         "\n" +
         "Učebňa: " +
-        room[index].specific 
+        room[index].specific +
+        "\n" +
+        level
         
     }
     found = true;
@@ -175,6 +181,10 @@ function onClick(event) {
     intersects[0].object.material.color.set("yellow");
     selected = intersects[0].object;
     index = room.findIndex((x) => x.x_pos === selected.position.x);
+    let level = "Prízemie"
+    if (room[index].z_pos === 1){
+      level = "Prvé poschodie"
+    }
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -182,9 +192,10 @@ function onClick(event) {
         room[index].class +
         "\n" +
         "Učebňa: " +
-        room[index].specific;
-
-      console.log(room[index].specific);
+        room[index].specific +
+        "\n" +
+        level
+        
     }
   }
 }
@@ -214,6 +225,10 @@ function select(event) {
     selected = intersects[0].object;
     index = room.findIndex((x) => x.x_pos === selected.position.x);
 
+    let level = "Prízemie"
+    if (room[index].z_pos === 1){
+      level = "Prvé poschodie"
+    }
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -221,9 +236,10 @@ function select(event) {
         room[index].class +
         "\n" +
         "Učebňa: " +
-        room[index].specific;
-      console.log(index);
-      console.log(room[index].specific);
+        room[index].specific +
+        "\n" +
+        level
+        
     }
   }
 }
