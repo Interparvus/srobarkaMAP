@@ -16,7 +16,15 @@ body {
   overflow: hidden;
   font-size: 40px;
   color: rgb(0, 255, 76);
-  background-color: rgba(59, 56, 56, 0.568);
+  background-color: rgba(59, 56, 56, 0.868);
+  margin-bottom: 20px;
+  border-radius: 12px;
+  
+}
+#button1:hover{
+  transition-duration: 0.8s;
+  background-color: darkturquoise;
+  color: rgb(162, 0, 255);
 }
 #button2{
   display: block;
@@ -28,7 +36,14 @@ body {
   overflow: hidden;
   font-size: 40px;
   color: rgb(0, 255, 76);
-  background-color: rgba(59, 56, 56, 0.568);
+  background-color: rgba(59, 56, 56, 0.868);
+  margin-top: 20px;
+  border-radius: 12px;
+  }
+#button2:hover{
+  transition-duration: 0.8s;
+  background-color: darkturquoise;
+  color: rgb(162, 0, 255);
 }
 #InfoTabulka{
   padding: 1rem;
@@ -39,10 +54,28 @@ body {
   overflow: hidden;
   display: block;
   color: rgb(0, 255, 76);
-  background-color: rgba(59, 56, 56, 0.568);
+  background-color: rgba(59, 56, 56, 0.868);
   font-size: 50px;
+  margin-top: 90px;
+  border-radius: 12px;
+}
+#searchFilter{
+  
+  display: block;
+  color: deeppink;
+  background-color: rgb(5, 32, 59);
+  left: 70%;
+  position: fixed;
+  height: relative;
+  width: 100%;
+  font-size: 18px;
+  padding: 11px;
+  border-radius: 12px;
+  z-index: 1;
+  margin-top: 4%;
 
 }
+
 #search {
   display: block;
   color: deeppink;
@@ -53,7 +86,7 @@ body {
   width: 100%;
   font-size: 18px;
   padding: 11px;
-  border: 1px solid #ddd;
+  border-radius: 12px;
   z-index: 265;
 
 }
@@ -62,15 +95,84 @@ body {
     display: block;
     color: deeppink;
     background-color: rgb(5, 32, 59);
-    left: 70%;
+    left: 60%;
     position: fixed;
-    height: 5%;
-    width: 100%;
-    font-size: 30px;
+    height: 160px;
+    width:100%;
+    font-size: 70px;
     padding: 11px;
     border: 1px solid #ddd;
     z-index: 265;
   
   }
-
+  #searchFilter{
+  
+    display: block;
+    color: deeppink;
+    background-color: rgb(5, 32, 59);
+    left: 60%;
+    position: fixed;
+    height: relative;
+    width: 100%;
+    font-size: 70px;
+    padding: 11px;
+    border-radius: 12px;
+    z-index: 1;
+    margin-top: 190px;
+  
+  }
+  #button1{
+    display: block;
+    border: 0;
+    z-index: 265;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    overflow: hidden;
+    font-size: 90px;
+    color: rgb(0, 255, 76);
+    background-color: rgba(59, 56, 56, 0.868);
+    margin-bottom: 30px;
+    margin-top: 10px;
+    border-radius: 12px;
+    
+  }
+  #button1:hover{
+    transition-duration: 0.8s;
+    background-color: darkturquoise;
+    color: rgb(162, 0, 255);
+  }
+  #button2{
+    display: block;
+    border: 0;
+    z-index: 265;
+    position: fixed;
+    top: 2.5%;
+    left: 0%;
+    overflow: hidden;
+    font-size: 90px;
+    color: rgb(0, 255, 76);
+    background-color: rgba(59, 56, 56, 0.868);
+    margin-top: 50px;
+    border-radius: 12px;
+    }
+  #button2:hover{
+    transition-duration: 0.8s;
+    background-color: darkturquoise;
+    color: rgb(162, 0, 255);
+  }
+  #InfoTabulka{
+    padding: 1rem;
+    z-index: 1;
+    position: fixed;
+    top: 4%;
+    left: 0%;
+    overflow: hidden;
+    display: block;
+    color: rgb(0, 255, 76);
+    background-color: rgba(59, 56, 56, 0.868);
+    font-size: 80px;
+    margin-top: 190px;
+    border-radius: 12px;
+  }
 }

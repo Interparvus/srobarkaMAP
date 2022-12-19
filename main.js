@@ -97,6 +97,7 @@ function search(event) {
     scene.remove(cube);
   });
   var content = document.querySelector("#search").value;
+  let searchFilter = document.getElementById("searchFilter")
   content = content.toLowerCase();
   picked_floor =0;
   rooms();
@@ -110,21 +111,28 @@ function search(event) {
   room_id.forEach((cube) => {
     cube.material.color.set("#ff1654");
   });
-
+  if (content !== ""){
+    searchFilter.style.display = "block";
+  }
   if (!content) return;
-
+  
+  searchFilter.innerText ="";
   for (var i = 0; i < room.length; i++) {
     if (
       room[i].specific.toLowerCase().includes(content) ||
       room[i].class.toLowerCase().includes(content)
     ) {
       room_id[i].material = newMaterial;
+
+      searchFilter.innerText += room[i].specific +"\n";
     }
   }
+
 
   if ((event.which == 13 || event.keyCode == 13) && index != -1) {
     let level = "Prízemie"
     if (room[index].z_pos === 1){
+
       level = "Prvé poschodie"
     }
     let element = document.getElementById("InfoTabulka");
@@ -755,6 +763,15 @@ function loadGLTF() {
 
 function animate() {
   requestAnimationFrame(animate);
+  var content = document.querySelector("#search").value;
+  let searchFilter = document.getElementById("searchFilter")
+  content = content.toLowerCase();
+  if (content == "") {
+    searchFilter.style.display = "none";
+    searchFilter.innerText ="";
+  }
+  
+  
   if (car4.position.z > 50) {
     scene.remove(car4);
     scene.remove(car2);
@@ -802,7 +819,7 @@ if(room_id.length>0)
       intersects[0].object.material = newMaterial;
     }
   }}
-
+  
   renderer.render(scene, camera);
 }
 
