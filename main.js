@@ -76,6 +76,7 @@ function btn2() {
   picked_floor = 2;
   rooms();
 }
+
 function search(event) {
   found = false;
   const transparentMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
@@ -115,7 +116,7 @@ function search(event) {
     searchFilter.style.display = "block";
   }
   if (!content) return;
-  
+
   searchFilter.innerText ="";
   for (var i = 0; i < room.length; i++) {
     if (
@@ -123,12 +124,13 @@ function search(event) {
       room[i].class.toLowerCase().includes(content)
     ) {
       room_id[i].material = newMaterial;
-
-      searchFilter.innerText += room[i].specific +"\n";
+      var id = room[i].specific;
+      searchFilter.innerHTML += "<p id =" +id+">"+room[i].specific+"</p>" ;
+      
     }
   }
 
-
+  
   if ((event.which == 13 || event.keyCode == 13) && index != -1) {
     let level = "Prízemie"
     if (room[index].z_pos === 1){
