@@ -34,6 +34,23 @@ var mouse,
   car3,
   car4;
 var room_id = [];
+var mixer;
+
+Loader.load("./infrastructure.gltf", (gltf) => {
+  var Structure = gltf.scene;
+  Structure.scale.set(12, 12, 12);
+  scene.add(Structure);
+  mixer = new THREE.AnimationMixer(Structure);
+  const clips = gltf.animations;
+  clips.forEach(function(clip){
+    const action = mixer.clipAction(clip);
+    action.play();
+  
+  });
+ 
+  
+});
+
 function btn1() {
   room_id.forEach((cube) => {
     scene.remove(cube);
@@ -663,42 +680,6 @@ function rooms() {
     scene.add(room_id[i]);
   }
 }
-function traffic() {
-  const geometry = new THREE.BoxGeometry(0.5, 0.5, 2);
-  const material = new THREE.MeshBasicMaterial({ color: "red" });
-  const Cargeometry = new THREE.BoxGeometry(0.5, 0.5, 1);
-  const Carmaterial = new THREE.MeshBasicMaterial({ color: "blue" });
-  tram = new THREE.Mesh(geometry, material);
-  tram2 = new THREE.Mesh(geometry, material);
-  car1 = new THREE.Mesh(Cargeometry, Carmaterial);
-  car2 = new THREE.Mesh(Cargeometry, Carmaterial);
-  car3 = new THREE.Mesh(Cargeometry, Carmaterial);
-  car4 = new THREE.Mesh(Cargeometry, Carmaterial);
-  tram.position.x = 12;
-  tram.position.y = 0.25;
-  tram.position.z = -50;
-  tram2.position.x = 13;
-  tram2.position.y = 0.25;
-  tram2.position.z = 50;
-  car1.position.x = -17;
-  car1.position.y = 0.25;
-  car1.position.z = 47;
-  car2.position.x = -18;
-  car2.position.y = 0.25;
-  car2.position.z = 50;
-  car3.position.x = -19;
-  car3.position.y = 0.25;
-  car3.position.z = -50;
-  car4.position.x = -20;
-  car4.position.y = 0.25;
-  car4.position.z = -48;
-  scene.add(tram);
-  scene.add(tram2);
-  scene.add(car1);
-  scene.add(car2);
-  scene.add(car3);
-  scene.add(car4);
-}
 
 function init() {
   scene.background = new THREE.Color("#58668b");
@@ -713,14 +694,11 @@ function init() {
   controls.maxDistance = 50;
   controls.maxPolarAngle = Math.PI / 2;
   controls.update();
+ 
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-  Loader.load("./infrastructure.gltf", (gltf) => {
-    var Structure = gltf.scene;
-    Structure.scale.set(12, 12, 12);
-    scene.add(Structure);
-  });
+
   if (mobile === false) {
     document.addEventListener("mousemove", onMouseMove, false);
     document.addEventListener("click", onClick);
@@ -741,9 +719,9 @@ function init() {
 }
 
 function setLight() {
-  const spotLight = new THREE.SpotLight("white");
-  spotLight.position.set(0, 20, 12);
-  scene.add(spotLight);
+  const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+  scene.add( light );
+
 }
 
 function loadGLTF() {
@@ -762,8 +740,12 @@ function loadGLTF() {
     scene.add(Floor2);
   });
 }
+const clock = new THREE.Clock();
 
 function animate() {
+  if(mixer)
+  {mixer.update(clock.getDelta())};
+  
   requestAnimationFrame(animate);
   var content = document.querySelector("#search").value;
   let searchFilter = document.getElementById("searchFilter")
@@ -772,32 +754,7 @@ function animate() {
     searchFilter.style.display = "none";
     searchFilter.innerText ="";
   }
-  
-  
-  if (car4.position.z > 50) {
-    scene.remove(car4);
-    scene.remove(car2);
-    car4.position.z = -48;
-    car2.position.z = 50;
-    scene.add(car4);
-    scene.add(car2);
-  }
-  if (car3.position.z < 50) {
-    tram.position.z += 0.1;
-    tram2.position.z += -0.1;
-    car1.position.z += -0.1;
-    car2.position.z += -0.2;
-    car3.position.z += 0.1;
-    car4.position.z += 0.2;
-  } else {
-    scene.remove(tram2);
-    scene.remove(tram);
-    scene.remove(car1);
-    scene.remove(car2);
-    scene.remove(car3);
-    scene.remove(car4);
-    traffic();
-  }
+      
 if(room_id.length>0)
   {for (var i = 0; i < room.length; i++) {
     room_id[i].rotation.y += 0.02;
@@ -829,5 +786,4 @@ init();
 setLight();
 loadGLTF();
 rooms();
-traffic();
 animate();
