@@ -40,6 +40,8 @@ Loader.load("./infrastructure.gltf", (gltf) => {
   var Structure = gltf.scene;
   Structure.scale.set(12, 12, 12);
   scene.add(Structure);
+  //Structure.material.transparent = true;
+  //Structure.material.opacity = 0.5;
   mixer = new THREE.AnimationMixer(Structure);
   const clips = gltf.animations;
   clips.forEach(function(clip){
