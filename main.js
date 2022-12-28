@@ -21,18 +21,13 @@ const scene = new THREE.Scene();
 let Loader = new THREE.GLTFLoader();
 let Floor;
 let Floor2;
+let Floor3;
 var picked_floor = 0;
 var mouse,
   raycaster,
   selected = null,
   found = false,
-  index,
-  tram,
-  tram2,
-  car1,
-  car2,
-  car3,
-  car4;
+  index;
 var room_id = [];
 var mixer;
 
@@ -40,8 +35,6 @@ Loader.load("./infrastructure.gltf", (gltf) => {
   var Structure = gltf.scene;
   Structure.scale.set(12, 12, 12);
   scene.add(Structure);
-  //Structure.material.transparent = true;
-  //Structure.material.opacity = 0.5;
   mixer = new THREE.AnimationMixer(Structure);
   const clips = gltf.animations;
   clips.forEach(function(clip){
@@ -57,19 +50,9 @@ function btn1() {
   room_id.forEach((cube) => {
     scene.remove(cube);
   });
-  var newMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
-  newMaterial.transparent = true;
-  newMaterial.opacity = 0;
-  newMaterial.alphaTest = 1;
-  Floor2.traverse((o) => {
-    if (o.isMesh) o.material = newMaterial;
-  });
-  Floor.traverse((o) => {
-    if (o.isMesh) {
-      o.material.opacity = 1;
-      o.material.transparent = false;
-    }
-  });
+  Floor2.visible = false;
+  Floor3.visible = false;
+  Floor.visible = true;
   picked_floor = 1;
   rooms();
 }
@@ -77,42 +60,28 @@ function btn2() {
   room_id.forEach((cube) => {
     scene.remove(cube);
   });
-  var newMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
-  newMaterial.transparent = true;
-  newMaterial.opacity = 0;
-  newMaterial.alphaTest = 1;
-  Floor.traverse((o) => {
-    if (o.isMesh) {
-      o.material = newMaterial;
-    }
-  });
-  Floor2.traverse((o) => {
-    if (o.isMesh) {
-      o.material.opacity = 1;
-      o.material.transparent = false;
-    }
-  });
+  Floor2.visible = true;
+  Floor3.visible = false;
+  Floor.visible = false;
   picked_floor = 2;
+  rooms();
+}
+function btn3() {
+  room_id.forEach((cube) => {
+    scene.remove(cube);
+  });
+  Floor2.visible = false;
+  Floor3.visible = true;
+  Floor.visible = false;
+  picked_floor = 3;
   rooms();
 }
 
 function search(event) {
   found = false;
-  const transparentMaterial = new THREE.MeshStandardMaterial({ color: "grey" });
-  transparentMaterial.transparent = true;
-  transparentMaterial.opacity = 1;
-  //transparentMaterial.alphaTest = 0.5;
-  Floor2.traverse((o) => {
-    if (o.isMesh) {
-      o.material = transparentMaterial;
-      
-    }
-  });
-  Floor.traverse((o) => {
-    if (o.isMesh) {
-      o.material = transparentMaterial;
-    }
-  });
+  Floor.visible = true;
+  Floor2.visible = true;
+  Floor3.visible = true;
   room_id.forEach((cube) => {
     scene.remove(cube);
   });
@@ -156,6 +125,14 @@ function search(event) {
 
       level = "Prvé poschodie"
     }
+    if (room[index].z_pos === 0.5){
+
+      level = "Prízemie"
+    }
+    if (room[index].z_pos === 1.7){
+
+      level = "Druhé poschodie"
+    }
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -183,6 +160,14 @@ function search(event) {
       });
 
       btn2()
+      
+    };
+    if(room[index].z_pos === 1.7){
+      room_id.forEach((cube) => {
+        scene.remove(cube);
+      });
+
+      btn3()
       
     };
     index = room.findIndex(
@@ -213,6 +198,9 @@ function onClick(event) {
     let level = "Prízemie"
     if (room[index].z_pos === 1){
       level = "Prvé poschodie"
+    }
+    if (room[index].z_pos === 1.7){
+      level = "Druhé poschodie"
     }
     let element = document.getElementById("InfoTabulka");
     if (element) {
@@ -258,6 +246,9 @@ function select(event) {
     if (room[index].z_pos === 1){
       level = "Prvé poschodie"
     }
+    if (room[index].z_pos === 1.7){
+      level = "Druhé poschodie"
+    }
     let element = document.getElementById("InfoTabulka");
     if (element) {
       element.innerText =
@@ -273,7 +264,22 @@ function select(event) {
   }
 }
 
-
+let room_3 =[
+  {
+    class: "400",
+    specific: "To by som rad vedel",
+    x_pos: -1.000012,
+    y_pos: 2.1,
+    z_pos: 1.7,
+  },
+  {
+    class: "401",
+    specific: "srnky netusia",
+    x_pos: 0.551,
+    y_pos: 2.1,
+    z_pos: 1.7,
+  }
+]
 let room_2 = [
   {
     class: "87",
@@ -664,9 +670,14 @@ function rooms() {
   if (picked_floor === 2) {
     room = room_2;
   }
-  if ((document.querySelector("#search") && document.querySelector("#search").value && found === false)||picked_floor===0 ){
-    room = room_1.concat(room_2);
+  if (picked_floor === 3) {
+    room = room_3;
   }
+  if ((document.querySelector("#search") && document.querySelector("#search").value && found === false)||picked_floor===0 ){
+    room = room_1.concat(room_2).concat(room_3);
+    
+  }
+  console.log(room);
   for (var x = 0; x < room.length; x++) {
     room_id[x] = new Object();
   }
@@ -706,6 +717,7 @@ function init() {
     document.addEventListener("click", onClick);
     document.querySelector("#button1").addEventListener("click", btn1);
     document.querySelector("#button2").addEventListener("click", btn2);
+    document.querySelector("#button3").addEventListener("click", btn3);
     document.querySelector("#search").addEventListener("input", search);
     document.querySelector("#search").addEventListener("click", search);
     document.querySelector("#search").addEventListener("keypress", search);
@@ -715,6 +727,7 @@ function init() {
     document.addEventListener("touchstart", select, { passive: false });
     document.querySelector("#button1").addEventListener("touchstart", btn1);
     document.querySelector("#button2").addEventListener("touchstart", btn2);
+    document.querySelector("#button3").addEventListener("touchstart", btn3);
     document.querySelector("#search").addEventListener("keyup", search);
     document.querySelector("#search").addEventListener("touchstart", search);
   }
@@ -727,8 +740,7 @@ function setLight() {
 }
 
 function loadGLTF() {
-  var newMaterial = new THREE.MeshStandardMaterial("grey");
-  newMaterial.transparent = true;
+
   Loader.load("./Prizemie.gltf", (gltf) => {
     Floor = gltf.scene;
     Floor.scale.set(12, 15, 12);
@@ -740,6 +752,12 @@ function loadGLTF() {
     Floor2.scale.set(12, 15, 12);
 
     scene.add(Floor2);
+  });
+  Loader.load("./DruhePoschodie.gltf", (gltf) => {
+    Floor3 = gltf.scene;
+    Floor3.scale.set(12, 15, 12);
+
+    scene.add(Floor3);
   });
 }
 const clock = new THREE.Clock();
