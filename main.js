@@ -76,7 +76,6 @@ function btn3() {
   picked_floor = 3;
   rooms();
 }
-
 function search(event) {
   found = false;
   Floor.visible = true;
@@ -113,8 +112,74 @@ function search(event) {
     ) {
       room_id[i].material = newMaterial;
       var id = room[i].specific;
-      searchFilter.innerHTML += "<p id =" +id+">"+room[i].specific+"</p>" ;
+      searchFilter.innerHTML += "<p id ="+id+">"+room[i].specific+"</p>";
+      const div = document.getElementById('searchFilter');
+      const children = div.querySelectorAll('*');
+      let act = "touchstart"
+      if (mobile === false){
+         act = "click"
+      }
+
+      children.forEach(child => {
+        
+        child.addEventListener(act, event => {
+          const clickedChildId = event.target.id;
+          index = room.findIndex(item => item.specific === clickedChildId);
+          let level = "Prízemie"
+          if (room[index].z_pos === 1){
       
+            level = "Prvé poschodie"
+          }
+          if (room[index].z_pos === 0.5){
+      
+            level = "Prízemie"
+          }
+          if (room[index].z_pos === 1.7){
+      
+            level = "Druhé poschodie"
+          }
+          let element = document.getElementById("InfoTabulka");
+          if (element) {
+            element.innerText =
+              "Miestnosť: " +
+              room[index].class +
+              "\n" +
+              "Učebňa: " +
+              room[index].specific +
+              "\n" +
+              level
+              
+          }
+          found = true;
+          if(room[index].z_pos === 0.5){
+            room_id.forEach((cube) => {
+              scene.remove(cube);
+            });
+      
+            btn1()
+            
+          };
+          if(room[index].z_pos === 1){
+            room_id.forEach((cube) => {
+              scene.remove(cube);
+            });
+      
+            btn2()
+            
+          };
+          if(room[index].z_pos === 1.7){
+            room_id.forEach((cube) => {
+              scene.remove(cube);
+            });
+      
+            btn3()
+            
+          };
+          
+          room_id[index].material = newMaterial; 
+          document.querySelector("#search").value = "";
+        });
+      });
     }
   }
 
@@ -267,16 +332,30 @@ function select(event) {
 let room_3 =[
   {
     class: "400",
-    specific: "To by som rad vedel",
+    specific: "Laboratórium_BIO",
     x_pos: -1.000012,
     y_pos: 2.1,
     z_pos: 1.7,
   },
   {
     class: "401",
-    specific: "srnky netusia",
+    specific: "Laboratórium_FYZ",
     x_pos: 0.551,
     y_pos: 2.1,
+    z_pos: 1.7,
+  },
+  {
+    class: "402",
+    specific: "Kabinet_BIO",
+    x_pos: -1.784,
+    y_pos: 1.25,
+    z_pos: 1.7,
+  },
+  {
+    class: "402",
+    specific: "Kabinet_FYZ",
+    x_pos: 1.5,
+    y_pos: 1.25,
     z_pos: 1.7,
   }
 ]
@@ -474,7 +553,7 @@ let room = [
   },
   {
     class: "12",
-    specific: "Žiacka rada",
+    specific: "Žiacka_rada",
     x_pos: 1.75001,
     y_pos: 2,
     z_pos: 0.5,
@@ -488,7 +567,7 @@ let room = [
   },
   {
     class: "14",
-    specific: "vrátnica ???",
+    specific: "Kabinet_SJL",
     x_pos: 1.05,
     y_pos: 1.65,
     z_pos: 0.5,
@@ -711,7 +790,7 @@ function init() {
   mouse = new THREE.Vector2();
   raycaster = new THREE.Raycaster();
   document.body.appendChild(renderer.domElement);
-
+  
   if (mobile === false) {
     document.addEventListener("mousemove", onMouseMove, false);
     document.addEventListener("click", onClick);
@@ -721,6 +800,7 @@ function init() {
     document.querySelector("#search").addEventListener("input", search);
     document.querySelector("#search").addEventListener("click", search);
     document.querySelector("#search").addEventListener("keypress", search);
+    
   }
   if (mobile === true) {
     document.addEventListener("touchstart", onTouch, { passive: false });

@@ -59,7 +59,11 @@ button:active {
   margin-top: 4%;
 
 }
-
+#searchFilter *:hover {
+  background-color: lightblue;
+  cursor: pointer;  
+  caret-color: transparent;
+}
 #search {
   display: block;
   color: deeppink;
@@ -74,6 +78,7 @@ button:active {
   z-index: 265;
 
 }
+
 @media only screen and (max-width: 600px){
   #search {
     display: block;
