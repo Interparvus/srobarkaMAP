@@ -151,13 +151,16 @@ function search(event) {
               
           }
           found = true;
+          
           if(room[index].z_pos === 0.5){
             room_id.forEach((cube) => {
               scene.remove(cube);
             });
       
             btn1()
-            
+            index = room.findIndex(
+              (x) => x.specific.includes(clickedChildId) === true || x.class===clickedChildId
+            );
           };
           if(room[index].z_pos === 1){
             room_id.forEach((cube) => {
@@ -165,7 +168,9 @@ function search(event) {
             });
       
             btn2()
-            
+            index = room.findIndex(
+              (x) => x.specific.includes(clickedChildId) === true || x.class===clickedChildId
+            );
           };
           if(room[index].z_pos === 1.7){
             room_id.forEach((cube) => {
@@ -173,7 +178,9 @@ function search(event) {
             });
       
             btn3()
-            
+            index = room.findIndex(
+              (x) => x.specific.includes(clickedChildId) === true || x.class===clickedChildId
+            );
           };
           
           room_id[index].material = newMaterial; 
@@ -340,7 +347,7 @@ let room_3 =[
   {
     class: "401",
     specific: "Laboratórium_FYZ",
-    x_pos: 0.551,
+    x_pos: 0.5511115,
     y_pos: 2.1,
     z_pos: 1.7,
   },

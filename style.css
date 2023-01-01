@@ -63,6 +63,8 @@ button:active {
   background-color: lightblue;
   cursor: pointer;  
   caret-color: transparent;
+  -webkit-caret-color: transparent;
+  -moz-caret-color: transparent;
 }
 #search {
   display: block;
